@@ -27,6 +27,8 @@ const config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          hover: 'hsl(var(--primary-hover))',
+          green: 'hsl(var(--primary-green))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
