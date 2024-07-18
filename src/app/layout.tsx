@@ -1,9 +1,34 @@
 import './globals.css';
 
+import {
+  ArrowRightStartOnRectangleIcon,
+  ChevronDownIcon,
+  PlusIcon,
+  TrashIcon,
+} from '@heroicons/react/20/solid';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 
 import { cn } from '@/lib/utils';
+import { Avatar } from '@/ui/components/avatar';
+import { Button } from '@/ui/components/button';
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownDivider,
+  DropdownHeader,
+  DropdownItem,
+  DropdownLabel,
+  DropdownMenu,
+} from '@/ui/components/dropdown';
+import { Input } from '@/ui/components/input';
+import {
+  Navbar,
+  NavbarItem,
+  NavbarLabel,
+  NavbarSection,
+  NavbarSpacer,
+} from '@/ui/components/navbar';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -24,10 +49,69 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'min-h-screen min-w-full overflow-hidden bg-background font-sans antialiased',
           fontSans.variable,
         )}
       >
+        <Navbar className="min-w-full bg-primary p-4">
+          <NavbarSection>
+            <Dropdown>
+              <DropdownButton
+                as={NavbarItem}
+                aria-label="Workspace Switcher"
+                className="rounded-lg hover:bg-primary-hover"
+              >
+                <NavbarLabel>Workspace Switcher</NavbarLabel>
+                <ChevronDownIcon />
+              </DropdownButton>
+              <DropdownMenu className="min-w-64" anchor="bottom start">
+                <DropdownItem
+                  useCustomStyles
+                  className="col-span-full flex flex-row gap-2 rounded-lg p-2"
+                >
+                  <Input type="text" placeholder="Add new workspace" />
+                  <Button
+                    plain={true}
+                    useCustomStyles={true}
+                    className="inline-flex h-6 w-10 items-center justify-center rounded-lg bg-emerald-500 p-2 font-medium text-white hover:bg-emerald-600"
+                  >
+                    <PlusIcon className="h-6 w-6 flex-shrink-0" />
+                  </Button>
+                </DropdownItem>
+                <DropdownDivider />
+                <DropdownItem href="/">
+                  <DropdownLabel>Workspace 1</DropdownLabel>
+                  <TrashIcon />
+                </DropdownItem>
+                <DropdownItem href="/">
+                  <DropdownLabel>Workspace 2</DropdownLabel>
+                  <TrashIcon />
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+            <NavbarItem href="/">Playground</NavbarItem>
+            <NavbarItem href="/">API Keys</NavbarItem>
+          </NavbarSection>
+          <NavbarSpacer />
+
+          <Dropdown>
+            <DropdownButton as={NavbarItem} aria-label="Account menu">
+              <Avatar />
+            </DropdownButton>
+            <DropdownMenu className="min-w-56" anchor="bottom end">
+              <DropdownHeader>
+                <h1 className="text-sm font-semibold">J D</h1>
+                <p className="text-sm font-semibold">johndoe@example.com</p>
+              </DropdownHeader>
+              <DropdownDivider />
+              <DropdownItem href="/">
+                <DropdownLabel>Sign Out</DropdownLabel>
+                <ArrowRightStartOnRectangleIcon />
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </Navbar>
+
         {children}
       </body>
     </html>
