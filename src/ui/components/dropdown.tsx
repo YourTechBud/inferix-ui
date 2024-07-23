@@ -49,34 +49,41 @@ export function DropdownMenu({
     </Headless.Transition>
   );
 }
+interface DropdownItemProps extends React.ComponentPropsWithoutRef<'button'> {
+  className?: string;
+  useCustomStyles?: boolean;
+}
 
 export function DropdownItem({
   className,
+  useCustomStyles = false,
   ...props
-}: { className?: string } & (
-  | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
-  | Omit<React.ComponentPropsWithoutRef<'button'>, 'className'>
-)) {
-  const classes = clsx(
-    className,
+}: DropdownItemProps &
+  (
+    | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
+    | Omit<React.ComponentPropsWithoutRef<'button'>, 'className'>
+  )) {
+  const baseStyles = [
     // Base styles
     'group cursor-pointer rounded-lg px-3.5 py-2.5 focus:outline-none sm:px-3 sm:py-1.5',
     // Text styles
     'text-left text-base/6 text-zinc-950 sm:text-sm/6 dark:text-white forced-colors:text-[CanvasText]',
     // Focus
-    'data-[focus]:bg-blue-500 data-[focus]:text-white',
+    'data-[focus]:bg-primary data-[focus]:text-black',
     // Disabled state
     'data-[disabled]:opacity-50',
     // Forced colors mode
     'forced-color-adjust-none forced-colors:data-[focus]:bg-[Highlight] forced-colors:data-[focus]:text-[HighlightText] forced-colors:[&>[data-slot=icon]]:data-[focus]:text-[HighlightText]',
     // Use subgrid when available but fallback to an explicit grid layout if not
-    'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-center supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
+    'col-span-full grid grid-cols-[auto_1fr_auto_auto] items-center supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
     // Icons
-    '[&>[data-slot=icon]]:col-start-1 [&>[data-slot=icon]]:row-start-1 [&>[data-slot=icon]]:-ml-0.5 [&>[data-slot=icon]]:mr-2.5 [&>[data-slot=icon]]:size-5 sm:[&>[data-slot=icon]]:mr-2 [&>[data-slot=icon]]:sm:size-4',
-    '[&>[data-slot=icon]]:text-zinc-500 [&>[data-slot=icon]]:data-[focus]:text-white [&>[data-slot=icon]]:dark:text-zinc-400 [&>[data-slot=icon]]:data-[focus]:dark:text-white',
+    '[&>[data-slot=icon]]:col-start-4 [&>[data-slot=icon]]:row-start-1 [&>[data-slot=icon]]:-ml-2.5 [&>[data-slot=icon]]:size-5 sm:[&>[data-slot=icon]]:mr-2 [&>[data-slot=icon]]:sm:size-4',
+    '[&>[data-slot=icon]]:text-zinc-500 [&>[data-slot=icon]]:data-[focus]:text-black [&>[data-slot=icon]]:dark:text-zinc-400 [&>[data-slot=icon]]:data-[focus]:dark:text-white',
     // Avatar
     '[&>[data-slot=avatar]]:-ml-1 [&>[data-slot=avatar]]:mr-2.5 [&>[data-slot=avatar]]:size-6 sm:[&>[data-slot=avatar]]:mr-2 sm:[&>[data-slot=avatar]]:size-5',
-  );
+  ];
+
+  const classes = clsx(className, !useCustomStyles && baseStyles);
 
   return (
     <Headless.MenuItem>

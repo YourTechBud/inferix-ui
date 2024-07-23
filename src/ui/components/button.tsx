@@ -158,29 +158,65 @@ const styles = {
     ],
   },
 };
+const sizeVariants = {
+  default: 'h-9 px-4 py-2',
+  sm: 'h-8 rounded-md px-3 text-xs',
+  lg: 'h-10 rounded-md px-8',
+  icon: 'h-9 w-9',
+};
+type SizeVariants = keyof typeof sizeVariants;
 
 type ButtonProps = (
-  | { color?: keyof typeof styles.colors; outline?: never; plain?: never }
-  | { color?: never; outline: true; plain?: never }
-  | { color?: never; outline?: never; plain: true }
+  | {
+      color?: keyof typeof styles.colors;
+      outline?: never;
+      plain?: never;
+      size?: SizeVariants;
+      useCustomStyles?: boolean;
+    }
+  | {
+      color?: never;
+      outline: true;
+      plain?: never;
+      size?: SizeVariants;
+      useCustomStyles?: boolean;
+    }
+  | {
+      color?: never;
+      outline?: never;
+      plain: true;
+      size?: SizeVariants;
+      useCustomStyles?: boolean;
+    }
 ) & { className?: string; children: React.ReactNode } & (
     | Omit<Headless.ButtonProps, 'className'>
     | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
   );
 
 export const Button = React.forwardRef(function Button(
-  { color, outline, plain, className, children, ...props }: ButtonProps,
+  {
+    color = 'light',
+    outline,
+    plain,
+    size = 'default',
+    useCustomStyles = false,
+    className,
+    children,
+    ...props
+  }: ButtonProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
-  const classes = clsx(
-    className,
-    styles.base,
-    outline
-      ? styles.outline
-      : plain
-        ? styles.plain
-        : clsx(styles.solid, styles.colors[color ?? 'dark/zinc']),
-  );
+  const baseClasses = clsx(className, styles.base, sizeVariants[size]);
+
+  const variantClasses = outline
+    ? styles.outline
+    : plain
+      ? styles.plain
+      : clsx(styles.solid, styles.colors[color ?? 'dark/zinc']);
+
+  const classes = useCustomStyles
+    ? clsx(className, sizeVariants[size])
+    : clsx(baseClasses, variantClasses);
 
   return 'href' in props ? (
     <Link
