@@ -18,7 +18,7 @@ export function PopoverButton({ className, children }: PopoverProps) {
   return (
     <Headless.PopoverButton
       className={cn(
-        'w-full rounded-xl border border-transparent outline-none transition hover:bg-zinc-200 data-[active]:border-zinc-200 data-[hover]:border-zinc-200 data-[active]:bg-zinc-200 dark:data-[active]:border-zinc-700 dark:data-[hover]:border-zinc-700',
+        'w-full rounded-xl border border-transparent outline-none transition hover:bg-primary-hover data-[active]:border-zinc-200 data-[hover]:border-zinc-200 data-[active]:bg-zinc-200 dark:data-[active]:border-zinc-700 dark:data-[hover]:border-zinc-700',
         className,
       )}
     >
