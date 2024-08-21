@@ -1,20 +1,27 @@
 'use client';
+
 import {
   ChevronDownIcon,
   PlusIcon,
   TrashIcon,
 } from '@heroicons/react/20/solid';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { BiConversation, BiLogOutCircle } from 'react-icons/bi';
 
+import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/button';
 import { Divider } from '@/ui/components/divider';
 import { Input } from '@/ui/components/input';
-import { Navbar, NavbarItem } from '@/ui/components/navbar';
+import { Navbar } from '@/ui/components/navbar';
 import { Popover, PopoverButton, PopoverPanel } from '@/ui/components/popover';
 import {
   Sidebar,
   SidebarBody,
   SidebarHeader,
+  SidebarHeading,
+  SidebarItem,
+  SidebarLabel,
   SidebarSection,
 } from '@/ui/components/sidebar';
 import { SidebarLayout } from '@/ui/components/sidebar-layout';
@@ -23,10 +30,6 @@ import { addWorkspace, deleteWorkspace } from '@/ui/widgets/navigation/helpers';
 interface HomeLayoutProps {
   children: React.ReactNode;
 }
-const navItems = [
-  { label: 'Playground', url: '/playground' },
-  { label: 'API Keys', url: '/api-keys' },
-];
 
 export default function HomeLayout({ children }: HomeLayoutProps) {
   const popoverTextStyles =
@@ -37,6 +40,9 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
   const [workspace, setWorkspace] = useState('');
   const [workspaceList, setWorkspaceList] = useState<string[]>([]);
 
+  const pathname = usePathname();
+
+  const playgroundItems = [{ icon: BiConversation, label: 'Chat', href: '/chat' }, { icon: BiLogOutCircle, label: 'Retrieval', href: '/retrieval' }];
   return (
     <SidebarLayout
       navbar={<Navbar></Navbar>}
@@ -44,7 +50,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
         <Sidebar>
           <SidebarHeader>
             <Popover>
-              <PopoverButton className="flex w-[14rem] flex-row items-center justify-between rounded-lg p-2 font-sans text-sm font-medium hover:bg-primary-hover">
+              <PopoverButton className="hover:bg-primary-hover flex w-[14rem] flex-row items-center justify-between rounded-lg p-2 font-sans text-sm font-medium">
                 Mark&apos;s Workspace
                 <ChevronDownIcon className={popoverIconStyles} />
               </PopoverButton>
@@ -96,21 +102,24 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
-              {navItems.map(({ label, url }) => (
-                <NavbarItem key={label} href={url}>
-                  {label}
-                </NavbarItem>
+              <SidebarHeading>Playground</SidebarHeading>
+              {playgroundItems.map((item, index) => (
+                <SidebarItem
+                  key={index}
+                  href={item.href}
+                  current={pathname === item.href}
+                >
+                  <item.icon className={cn('h-4 w-4', pathname === item.href ? '' : 'text-zinc-500')}/>
+                  <SidebarLabel className={pathname === item.href ? '' : 'text-zinc-500'}>{item.label}</SidebarLabel>
+                </SidebarItem>
               ))}
             </SidebarSection>
           </SidebarBody>
         </Sidebar>
       }
     >
-      <div className="flex h-[calc(100vh-64px)] w-full flex-col items-center justify-center overflow-hidden bg-background p-2 font-sans antialiased sm:min-h-screen">
-        {/* panel div */}
-        <div className="flex h-full w-full flex-grow flex-col overflow-hidden rounded-lg bg-white p-4 sm:p-6 md:p-10">
-          {children}
-        </div>
+      <div className="flex h-[calc(100vh-64px)] w-full flex-col items-center justify-center overflow-hidden bg-background font-sans antialiased sm:min-h-screen lg:p-2">
+        {children}
       </div>
     </SidebarLayout>
   );

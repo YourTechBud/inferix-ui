@@ -12,8 +12,9 @@ export default function PagePanel({
     <div
       {...props}
       className={clsx(
-        'pb-4 pl-10 pr-10 lg:my-3',
-        'lg:rounded-lg lg:bg-white lg:shadow-sm lg:ring-1 lg:ring-zinc-950/5 dark:lg:bg-zinc-900 dark:lg:ring-white/10',
+        'h-full w-full flex-grow flex-col',
+        'px-10 lg:py-10',
+        'bg-white lg:rounded-lg',
         className,
       )}
     >
