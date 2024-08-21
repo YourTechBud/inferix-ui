@@ -43,7 +43,7 @@ const styles = {
   ],
   outline: [
     // Base
-    'border-zinc-950/10 text-zinc-950 data-[active]:bg-zinc-950/[2.5%] data-[hover]:bg-zinc-950/[2.5%]',
+    'bg-background border-zinc-950/10 text-zinc-950 data-[active]:bg-zinc-950/[2.5%] data-[hover]:bg-zinc-950/[2.5%]',
     // Dark mode
     'dark:border-white/15 dark:text-white dark:[--btn-bg:transparent] dark:data-[active]:bg-white/5 dark:data-[hover]:bg-white/5',
     // Icon
@@ -58,6 +58,11 @@ const styles = {
     '[--btn-icon:theme(colors.zinc.500)] data-[active]:[--btn-icon:theme(colors.zinc.700)] data-[hover]:[--btn-icon:theme(colors.zinc.700)] dark:[--btn-icon:theme(colors.zinc.500)] dark:data-[active]:[--btn-icon:theme(colors.zinc.400)] dark:data-[hover]:[--btn-icon:theme(colors.zinc.400)]',
   ],
   colors: {
+    primary: [
+      'text-white [--btn-bg:theme(colors.primary.500)] [--btn-hover-overlay:theme(colors.primary.700)]',
+      'dark:[--btn-hover-overlay:theme(colors.primary.300)]',
+      '[--btn-icon:theme(colors.primary.200)] data-[active]:[--btn-icon:theme(colors.primary.100)] data-[hover]:[--btn-icon:theme(colors.primary.100)]',
+    ],
     'dark/zinc': [
       'text-white [--btn-bg:theme(colors.zinc.900)] [--btn-border:theme(colors.zinc.950/90%)] [--btn-hover-overlay:theme(colors.white/10%)]',
       'dark:text-white dark:[--btn-bg:theme(colors.zinc.600)] dark:[--btn-hover-overlay:theme(colors.white/5%)]',
@@ -195,7 +200,7 @@ type ButtonProps = (
 
 export const Button = React.forwardRef(function Button(
   {
-    color = 'light',
+    color = 'primary',
     outline,
     plain,
     size = 'default',
@@ -214,9 +219,11 @@ export const Button = React.forwardRef(function Button(
       ? styles.plain
       : clsx(styles.solid, styles.colors[color ?? 'dark/zinc']);
 
+  const responsiveClasses = 'text-sm sm:text-base px-3 py-1.5 sm:px-4 sm:py-2';
+
   const classes = useCustomStyles
-    ? clsx(className, sizeVariants[size])
-    : clsx(baseClasses, variantClasses);
+    ? clsx(className, sizeVariants[size], responsiveClasses)
+    : clsx(baseClasses, variantClasses, responsiveClasses);
 
   return 'href' in props ? (
     <Link
@@ -229,7 +236,7 @@ export const Button = React.forwardRef(function Button(
   ) : (
     <Headless.Button
       {...props}
-      className={clsx(classes, 'cursor-default')}
+      className={clsx(classes, 'cursor-pointer')}
       ref={ref}
     >
       <TouchTarget>{children}</TouchTarget>
