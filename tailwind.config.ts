@@ -24,11 +24,15 @@ const config = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        outline: 'hsl(var(--outline))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-          hover: 'hsl(var(--primary-hover))',
-          green: 'hsl(var(--primary-green))',
+          100: '#0cc3de',
+          200: '#0aa0b6',
+          300: '#0bc0da',
+          400: '#0995aa',
+          500: 'hsl(var(--primary))', // Main primary color
+          600: '#066b79',
+          700: '#044049',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
