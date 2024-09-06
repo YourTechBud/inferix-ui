@@ -26,6 +26,7 @@ const config = {
         foreground: 'hsl(var(--foreground))',
         outline: 'hsl(var(--outline))',
         primary: {
+          DEFAULT: 'hsl(var(--primary))',
           100: '#0cc3de',
           200: '#0aa0b6',
           300: '#0bc0da',
@@ -37,6 +38,10 @@ const config = {
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
+          button: '#829498',
+          buttonHover: '#687a7e',
+          buttonDark: '#b9c3c5',
+          buttonDarkHover: '#819397',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
