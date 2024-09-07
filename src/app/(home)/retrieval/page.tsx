@@ -10,11 +10,11 @@ export default function Retrieval() {
       <Heading text="Retrieval" />
       <div className="flex flex-grow flex-col items-center justify-center gap-4 sm:gap-6">
         <Image
-          src="/assets/emptyPlayground.png"
-          alt="playground"
-          width={150}
-          height={190}
-          className="max-h-[30vh] w-24 object-contain sm:w-32 md:w-auto"
+          src="/assets/chat.png"
+          alt="retrieval"
+          width={200}
+          height={200}
+          className="h-auto w-24 object-contain sm:w-[200px]"
         />
         <div className="flex flex-col items-center gap-1 text-center">
           <Subheading text="You're Just One Step Away From AI-ing!" />
