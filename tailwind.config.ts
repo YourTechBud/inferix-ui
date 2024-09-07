@@ -25,23 +25,21 @@ const config = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         outline: 'hsl(var(--outline))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          100: '#0cc3de',
-          200: '#0aa0b6',
-          300: '#0bc0da',
-          400: '#0995aa',
-          500: 'hsl(var(--primary))', // Main primary color
-          600: '#066b79',
-          700: '#044049',
+        primaryButton: {
+          light: 'hsl(var(--primary))', // Main primary color
+          hover: '#044049',
+          dark: '#0aa0b6',
+          darkHover: '#0bc0da',
+        },
+        secondaryButton: {
+          light: '#829498',
+          hover: '#687a7e',
+          dark: '#b9c3c5',
+          darkHover: '#819397',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
-          button: '#829498',
-          buttonHover: '#687a7e',
-          buttonDark: '#b9c3c5',
-          buttonDarkHover: '#819397',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
