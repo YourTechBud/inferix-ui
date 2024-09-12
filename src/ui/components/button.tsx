@@ -59,9 +59,12 @@ const styles = {
   ],
   colors: {
     primary: [
-      'text-white [--btn-bg:theme(colors.primary.500)] [--btn-hover-overlay:theme(colors.primary.700)]',
-      'dark:[--btn-hover-overlay:theme(colors.primary.300)]',
-      '[--btn-icon:theme(colors.primary.200)] data-[active]:[--btn-icon:theme(colors.primary.100)] data-[hover]:[--btn-icon:theme(colors.primary.100)]',
+      'text-white [--btn-bg:theme(colors.primaryButton.light)] [--btn-hover-overlay:theme(colors.primaryButton.hover)]',
+      'dark:[--btn-bg:theme(colors.primaryButton.dark)] dark:[--btn-hover-overlay:theme(colors.primaryButton.darkHover)]',
+    ],
+    secondary: [
+      'text-white [--btn-bg:theme(colors.secondaryButton.light)] [--btn-hover-overlay:theme(colors.secondaryButton.hover)]',
+      'dark:[--btn-bg:theme(colors.secondaryButton.dark)] dark:[--btn-hover-overlay:theme(colors.secondaryButton.darkHover)]',
     ],
     'dark/zinc': [
       'text-white [--btn-bg:theme(colors.zinc.900)] [--btn-border:theme(colors.zinc.950/90%)] [--btn-hover-overlay:theme(colors.white/10%)]',
