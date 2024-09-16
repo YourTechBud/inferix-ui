@@ -6,6 +6,7 @@ import { Button } from '@/ui/components/button';
 import { Heading, SecondaryText, Subheading } from '@/ui/components/heading';
 import PagePanel from '@/ui/components/page-panel';
 import { RetrievalTable } from '@/app/(home)/retrieval/retrieval-table';
+import { RetrievalOptions } from '@/app/(home)/retrieval/retrieval-options';
 
 import { useState } from 'react';
 
@@ -29,7 +30,9 @@ export default function Retrieval() {
       <Heading text="Retrieval" />
       {data ? (
         <div className="flex flex-grow flex-col gap-4 sm:gap-6">
-          <div>Options Menu</div>
+          <div className="mt-4 flex items-center justify-between">
+            <RetrievalOptions />
+          </div>
           <div className="flex-grow">
             <RetrievalTable chunks={chunks} />
             {!chunks && (
