@@ -1,10 +1,11 @@
 'use client';
-import { Button } from '@/ui/components/button';
-import { cn } from '@/lib/utils';
-import { BiPlay } from 'react-icons/bi';
-import { useState, useRef } from 'react';
-
+import { useRef, useState } from 'react';
 import React from 'react';
+import { BiPlay } from 'react-icons/bi';
+
+import { cn } from '@/lib/utils';
+import { Button } from '@/ui/components/button';
+
 import RadioButtons from './radio-buttons';
 
 interface ChatPromptProps {
@@ -28,6 +29,7 @@ export default function ChatPrompt({
       ? 'ring-2 ring-primary ring-opacity-50'
       : 'focus-visible:ring-2 focus-visible:ring-ring',
   );
+
   const inputClassName = cn(
     'w-full text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground placeholder:text-base border-none focus-visible:outline-none resize-none overflow-hidden min-h-6',
   );
