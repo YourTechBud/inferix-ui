@@ -42,7 +42,10 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
 
   const pathname = usePathname();
 
-  const playgroundItems = [{ icon: BiConversation, label: 'Chat', href: '/chat' }, { icon: BiLogOutCircle, label: 'Retrieval', href: '/retrieval' }];
+  const playgroundItems = [
+    { icon: BiConversation, label: 'Chat', href: '/chat' },
+    { icon: BiLogOutCircle, label: 'Retrieval', href: '/retrieval' },
+  ];
   return (
     <SidebarLayout
       navbar={<Navbar></Navbar>}
@@ -109,8 +112,17 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
                   href={item.href}
                   current={pathname === item.href}
                 >
-                  <item.icon className={cn('h-4 w-4', pathname === item.href ? '' : 'text-zinc-500')}/>
-                  <SidebarLabel className={pathname === item.href ? '' : 'text-zinc-500'}>{item.label}</SidebarLabel>
+                  <item.icon
+                    className={cn(
+                      'h-4 w-4',
+                      pathname === item.href ? '' : 'text-zinc-500',
+                    )}
+                  />
+                  <SidebarLabel
+                    className={pathname === item.href ? '' : 'text-zinc-500'}
+                  >
+                    {item.label}
+                  </SidebarLabel>
                 </SidebarItem>
               ))}
             </SidebarSection>
@@ -118,7 +130,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
         </Sidebar>
       }
     >
-      <div className="flex h-[calc(100vh-64px)] w-full flex-col items-center justify-center overflow-hidden bg-background font-sans antialiased sm:min-h-screen lg:p-2">
+      <div className="flex h-full w-full flex-col items-center justify-center overflow-auto bg-background font-sans antialiased sm:min-h-screen lg:p-2">
         {children}
       </div>
     </SidebarLayout>
