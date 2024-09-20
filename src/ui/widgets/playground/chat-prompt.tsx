@@ -6,7 +6,7 @@ import { BiPlay } from 'react-icons/bi';
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/button';
 
-import RadioButtons from './radio-buttons';
+import RadioButtons from '../../components/radio-buttons';
 
 interface ChatPromptProps {
   handleSendPrompt: () => void;
