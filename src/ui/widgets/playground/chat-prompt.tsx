@@ -24,14 +24,16 @@ export default function ChatPrompt({
 
   //styles for components
   const divClassName = cn(
-    'flex flex-col w-full rounded-lg border-2 border-input bg-white ring-offset-background focus-visible:outline-none resize-none overflow-hidden p-4 min-h-28 max-h-52',
+    'flex w-full rounded-lg border-2 border-input bg-white ring-offset-background focus-visible:outline-none resize-none overflow-hidden p-4 max-h-52',
     isFocused
       ? 'ring-2 ring-primary ring-opacity-50'
       : 'focus-visible:ring-2 focus-visible:ring-ring',
+    isRetrievalPrompt ? 'items-end min-h-16' : 'flex-col min-h-28',
   );
 
   const inputClassName = cn(
-    'w-full text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground placeholder:text-base border-none focus-visible:outline-none resize-none overflow-hidden min-h-6',
+    'min-h-6 w-full text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground placeholder:text-base border-none focus-visible:outline-none resize-none overflow-hidden',
+    isRetrievalPrompt ? 'pb-2 max-h-44' : '',
   );
 
   //dynamically changing the height of div and textarea when text is too big
@@ -44,7 +46,7 @@ export default function ChatPrompt({
     if (divRef.current && textareaRef.current) {
       divRef.current.style.height = 'auto';
       divRef.current.style.height = `${
-        textareaRef.current.scrollHeight + 80 //adding extra space for buttons
+        textareaRef.current.scrollHeight + (isRetrievalPrompt ? 40 : 80) //adding extra space for buttons
       }px`;
     }
   };
@@ -98,7 +100,7 @@ export default function ChatPrompt({
         </div>
       )}
       {isRetrievalPrompt && (
-        <div className="mt-4 flex flex-row items-end justify-end">
+        <div className="flex items-end">
           <Button size="sm" onClick={handleSend}>
             <div className="flex flex-row items-center gap-2">
               Run <BiPlay className="h-4 w-4" />
