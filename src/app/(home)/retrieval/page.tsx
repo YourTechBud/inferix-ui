@@ -7,6 +7,7 @@ import { Heading, SecondaryText, Subheading } from '@/ui/components/heading';
 import PagePanel from '@/ui/components/page-panel';
 import { RetrievalTable } from '@/app/(home)/retrieval/retrieval-table';
 import { RetrievalOptions } from '@/app/(home)/retrieval/retrieval-options';
+import ChatPrompt from '@/ui/widgets/playground/chat-prompt';
 
 import { useState } from 'react';
 
@@ -41,7 +42,10 @@ export default function Retrieval() {
               </div>
             )}
           </div>
-          <div>Retrieval Prompt</div>
+          <ChatPrompt
+            handleSendPrompt={() => console.log('prompt sent')}
+            isRetrievalPrompt={true}
+          />
         </div>
       ) : (
         <div className="flex flex-grow flex-col items-center justify-center gap-4 sm:gap-6">
