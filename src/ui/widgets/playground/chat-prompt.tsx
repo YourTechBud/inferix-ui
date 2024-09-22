@@ -28,7 +28,7 @@ export default function ChatPrompt({
     isFocused
       ? 'ring-2 ring-primary ring-opacity-50'
       : 'focus-visible:ring-2 focus-visible:ring-ring',
-    isRetrievalPrompt ? 'items-end min-h-16' : 'flex-col min-h-28',
+    isRetrievalPrompt ? 'items-end min-h-16 gap-4' : 'flex-col min-h-28',
   );
 
   const inputClassName = cn(
