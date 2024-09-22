@@ -61,7 +61,9 @@ export default function Retrieval() {
             <SecondaryText text="You will need to setup pipelines or import datasets to start experimenting with RAG" />
           </div>
           <div className="flex flex-row items-center gap-4">
-            <Button>Setup Connections</Button>
+            <Button onClick={() => setData(graphRetriever)}>
+              Setup Connections
+            </Button>
             <SecondaryText text="OR" />
             <Button color="secondary" onClick={() => setData(graphRetriever)}>
               Import Dataset
