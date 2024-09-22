@@ -24,7 +24,7 @@ export type Dataset = Data[];
 
 export default function Retrieval() {
   const [data, setData] = useState<Dataset | null>(null);
-  const [chunks, setChunks] = useState<Dataset | null>(graphRetriever);
+  const [chunks, setChunks] = useState<Dataset | null>(null);
 
   return (
     <PagePanel className="flex h-full flex-col">
@@ -32,7 +32,7 @@ export default function Retrieval() {
       {data ? (
         <div className="flex flex-grow flex-col gap-4 sm:gap-6">
           <div className="mt-4 flex items-center justify-between">
-            <RetrievalOptions />
+            <RetrievalOptions handleClear={() => setChunks(null)} />
           </div>
           <div className="flex-grow">
             <RetrievalTable chunks={chunks} />
@@ -43,7 +43,7 @@ export default function Retrieval() {
             )}
           </div>
           <ChatPrompt
-            handleSendPrompt={() => console.log('prompt sent')}
+            handleSendPrompt={() => setChunks(graphRetriever)}
             isRetrievalPrompt={true}
           />
         </div>

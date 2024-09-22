@@ -7,7 +7,11 @@ import { BiSolidEraser } from 'react-icons/bi';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { TbArrowsExchange } from 'react-icons/tb';
 
-export const RetrievalOptions = () => {
+type RetrievalOptionsProps = {
+  handleClear: () => void;
+};
+
+export const RetrievalOptions = ({ handleClear }: RetrievalOptionsProps) => {
   return (
     <>
       <div className="flex items-center gap-4">
@@ -29,7 +33,7 @@ export const RetrievalOptions = () => {
         <Button color="light" className="text-sm/6">
           <LuArrowRightToLine />
         </Button>
-        <Button color="secondary" className="text-sm/6">
+        <Button color="secondary" className="text-sm/6" onClick={handleClear}>
           <BiSolidEraser />
           Clear
         </Button>
