@@ -11,9 +11,11 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
+    --popover-hover: 240 1% 83%;
     --primary: 188 90% 27%;
     --primary-foreground: 210 40% 98%;
     --primary-hover: 0 0% 83%;
+    --item-hover: 240 5% 96%;
     --primary-green: 165 82% 35%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -41,6 +43,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
+    --popover-hover: 240 10% 4%;
+    --item-hover: 220 100% 99%;
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;

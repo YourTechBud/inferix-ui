@@ -39,7 +39,7 @@ export function SidebarBody({
       {...props}
       className={clsx(
         className,
-        'flex flex-1 flex-col overflow-y-auto p-4 [&>[data-slot=section]+[data-slot=section]]:mt-8',
+        'flex h-full flex-1 flex-col overflow-y-auto p-4 sm:overflow-y-hidden [&>[data-slot=section]+[data-slot=section]]:mt-8',
       )}
     />
   );
@@ -86,7 +86,7 @@ export function SidebarDivider({
       {...props}
       className={clsx(
         className,
-        'my-4 border-t border-zinc-950/5 lg:-mx-4 dark:border-white/5',
+        'my-4 border-t border-zinc-950/5 dark:border-white/5 lg:-mx-4',
       )}
     />
   );
