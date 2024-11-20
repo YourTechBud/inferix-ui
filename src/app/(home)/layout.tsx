@@ -36,17 +36,17 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
 
   const playgroundItems = [
     { icon: BiConversation, label: 'Chat', href: '/chat' },
-    { icon: BiLogOutCircle, label: 'Retrieval', href: '/retrieval' },
+    { icon: BiLogOutCircle, label: 'Retrieval', href: '' },
   ];
 
   const dataItems = [
-    { icon: BiObjectsHorizontalLeft, label: 'Pipelines', href: '/pipelines' },
-    { icon: BiData, label: 'Datasets', href: '/pipelines' },
+    { icon: BiObjectsHorizontalLeft, label: 'Pipelines', href: '' },
+    { icon: BiData, label: 'Datasets', href: '' },
   ];
 
   const sidebarBottomItems = [
-    { icon: BiLock, label: 'API Keys', href: '/api-keys' },
-    { icon: BiSlider, label: 'Connections', href: '/connections' },
+    { icon: BiLock, label: 'API Keys', href: '' },
+    { icon: BiSlider, label: 'Connections', href: '' },
   ];
 
   return (
