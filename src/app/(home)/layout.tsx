@@ -35,8 +35,8 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
   const pathname = usePathname();
 
   const playgroundItems = [
-    { icon: BiConversation, label: 'Chat', href: '/chat' },
     { icon: BiLogOutCircle, label: 'Retrieval', href: '' },
+    { icon: BiConversation, label: 'Chat', href: '/chat' },
   ];
 
   const dataItems = [
