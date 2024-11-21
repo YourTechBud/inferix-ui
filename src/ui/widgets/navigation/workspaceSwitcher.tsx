@@ -2,13 +2,13 @@ import React from 'react';
 import { BiChevronDown, BiPlus } from 'react-icons/bi';
 
 import { Button } from '@/ui/components/button';
-import CustomDropdown from '@/ui/components/customDropdown';
+import CustomDropdown from '@/ui/components/custom-dropdown';
 
 const WorkspaceSwitcher = () => {
   const popoverIconStyles = 'h-5 w-5 fill-zinc-500 group-hover:fill-black';
 
   const trigger = (
-    <div className="hover:bg-popover-hover active:bg-popover-hover flex flex-row items-center justify-between rounded-lg p-2 font-sans text-sm font-medium focus:outline-none">
+    <div className="flex flex-row items-center justify-between rounded-lg p-2 font-sans text-sm font-medium hover:bg-popover-hover focus:outline-none active:bg-popover-hover">
       Mark&apos;s Workspace
       <BiChevronDown className={popoverIconStyles} />
     </div>

@@ -1,10 +1,16 @@
+'use client';
 import React from 'react';
 
 import { Popover, PopoverButton, PopoverPanel } from '@/ui/components/popover';
 
 interface CustomDropdownProps {
   trigger: React.ReactNode;
-  items: { label: string; onClick: () => void; icon?: React.ReactNode }[];
+  items: {
+    label: string;
+    sublabel?: string;
+    onClick: () => void;
+    icon?: React.ReactNode;
+  }[];
   endButton?: React.ReactNode;
   containerClassName?: string;
   panelClassName?: string;
@@ -12,7 +18,7 @@ interface CustomDropdownProps {
   itemTextClassName?: string;
 }
 
-const CustomDropdown: React.FC<CustomDropdownProps> = ({
+export default function CustomDropdown({
   trigger,
   items,
   endButton,
@@ -20,7 +26,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   panelClassName = 'flex w-56 flex-col p-2 space-y-1',
   itemClassName = 'w-full text-left flex items-center rounded-lg p-2 hover:bg-item-hover focus:outline-none',
   itemTextClassName = 'font-medium text-sm',
-}) => {
+}: CustomDropdownProps) {
   return (
     <div className={containerClassName}>
       <Popover>
@@ -32,8 +38,17 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
               className={itemClassName}
               onClick={item.onClick}
             >
-              {item.icon && <span className="mr-2">{item.icon}</span>}
-              <span className={itemTextClassName}>{item.label}</span>
+              <div className="flex flex-row items-center justify-between">
+                {item.icon && <span className="mr-2">{item.icon}</span>}
+                <div className="flex flex-col">
+                  <span className={itemTextClassName}>{item.label}</span>
+                  {item.sublabel && (
+                    <span className="text-xs text-gray-500">
+                      {item.sublabel}
+                    </span>
+                  )}
+                </div>
+              </div>
             </button>
           ))}
           {endButton && <div className="mt-2 w-full">{endButton}</div>}
@@ -41,6 +56,4 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       </Popover>
     </div>
   );
-};
-
-export default CustomDropdown;
+}

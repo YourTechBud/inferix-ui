@@ -3,10 +3,10 @@ import { BiChevronDown } from 'react-icons/bi';
 import { BiLogOut, BiUser } from 'react-icons/bi';
 
 import { Avatar } from '@/ui/components/avatar';
-import CustomDropdown from '@/ui/components/customDropdown';
+import CustomDropdown from '@/ui/components/custom-dropdown';
 
 const trigger = (
-  <div className="hover:bg-popover-hover active:bg-popover-hover flex flex-row items-center justify-between rounded-lg p-2">
+  <div className="flex flex-row items-center justify-between rounded-lg p-2 hover:bg-popover-hover active:bg-popover-hover">
     <div className="flex flex-row items-center gap-2">
       <Avatar
         src="/assets/avatar.png"
