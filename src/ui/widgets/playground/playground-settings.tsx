@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react';
+import { BiLock } from 'react-icons/bi';
 
 import { Button } from '@/ui/components/button';
+import { Heading } from '@/ui/components/headings';
 import { Input } from '@/ui/components/input';
 import { Slider } from '@/ui/components/slider';
 
@@ -23,17 +25,19 @@ export default function PlaygroundSettings() {
         </Button>
       </div>
       <div className="w-full space-y-3">
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row items-center justify-between">
           <h1 className="items-start text-sm font-semibold">Temperature</h1>
-          <Input
-            className="ml-2 w-20"
-            type="number"
-            value={temperature}
-            step="0.01"
-            min="0"
-            max="2"
-            onChange={e => setTemperature(parseFloat(e.target.value) || 0)}
-          />
+          <div>
+            <Input
+              className=""
+              type="number"
+              value={temperature}
+              step="0.01"
+              min="0"
+              max="2"
+              onChange={e => setTemperature(parseFloat(e.target.value) || 0)}
+            />
+          </div>
         </div>
         <Slider
           value={[temperature]}
@@ -47,15 +51,17 @@ export default function PlaygroundSettings() {
       <div className="w-full space-y-3">
         <div className="flex flex-row justify-between">
           <h1 className="items-start text-sm font-semibold">Maximum Tokens</h1>
-          <Input
-            className="ml-2 w-20"
-            type="number"
-            value={tokens}
-            step="1"
-            min="0"
-            max="4095"
-            onChange={e => setTokens(parseInt(e.target.value) || 0)}
-          />
+          <div>
+            <Input
+              className=""
+              type="number"
+              value={tokens}
+              step="1"
+              min="0"
+              max="4095"
+              onChange={e => setTokens(parseInt(e.target.value) || 0)}
+            />
+          </div>
         </div>
         <Slider
           value={[tokens]}
@@ -69,15 +75,17 @@ export default function PlaygroundSettings() {
       <div className="w-full space-y-3">
         <div className="flex flex-row justify-between">
           <h1 className="items-start text-sm font-semibold">Top P</h1>
-          <Input
-            className="ml-2 w-20"
-            type="number"
-            value={topP}
-            step="0.01"
-            min="0"
-            max="1"
-            onChange={e => setTopP(parseFloat(e.target.value) || 0)}
-          />
+          <div>
+            <Input
+              className=""
+              type="number"
+              value={topP}
+              step="0.01"
+              min="0"
+              max="1"
+              onChange={e => setTopP(parseFloat(e.target.value) || 0)}
+            />
+          </div>
         </div>
         <Slider
           value={[topP]}
@@ -87,6 +95,15 @@ export default function PlaygroundSettings() {
             setTopP(value[0]);
           }}
         />
+      </div>
+      <div className="w-full p-2">
+        <div className="flex flex-row gap-2 align-top">
+          <BiLock className="h-10 w-10 fill-black" />
+          <Heading
+            variant="small"
+            text="API and Playground requests will not be used to train the models."
+          />
+        </div>
       </div>
     </div>
   );

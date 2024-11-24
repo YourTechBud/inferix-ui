@@ -41,6 +41,7 @@ import { Divider } from '@/ui/components/divider';
 import { Heading } from '@/ui/components/headings';
 import PagePanel from '@/ui/components/page-panel';
 import ChatMessage from '@/ui/widgets/playground/chat-message';
+import ChatPrompt from '@/ui/widgets/playground/chat-prompt';
 import PlaygroundSettings from '@/ui/widgets/playground/playground-settings';
 
 export default function Chat() {
@@ -86,25 +87,29 @@ export default function Chat() {
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
       <div className="flex flex-grow flex-row gap-4 sm:gap-6">
-        <div className="mt-4 flex flex-grow flex-col space-y-4 lg:w-[750px]">
-          <div className="flex flex-row gap-4">
-            <CustomDropdown
-              trigger={trigger}
-              items={items}
-              endButton={endButton}
-            />
-            <Button color="white">
-              <BiArrowToRight className="h-5 w-5 fill-black" />
-            </Button>
-            <Button color="secondary">
-              <div className="flex flex-row items-center gap-1">
-                <BiEraser className="h-5 w-5 fill-white" />
-                <p className="sm:text-small text-xs">Clear Conversation</p>
-              </div>
-            </Button>
+        <div className="mt-4 flex flex-grow flex-col justify-between space-y-4 lg:w-[750px]">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row gap-4">
+              <CustomDropdown
+                trigger={trigger}
+                items={items}
+                endButton={endButton}
+              />
+              <Button color="white">
+                <BiArrowToRight className="h-5 w-5 fill-black" />
+              </Button>
+              <Button color="secondary">
+                <div className="flex flex-row items-center gap-1">
+                  <BiEraser className="h-5 w-5 fill-white" />
+                  <p className="sm:text-small text-xs">Clear Conversation</p>
+                </div>
+              </Button>
+            </div>
+
+            <ChatMessage variant="system" className="w-full" />
           </div>
 
-          <ChatMessage variant="system" className="w-full" />
+          <ChatPrompt handleSendPrompt={() => {}} />
         </div>
         <Divider orientation="vertical" className="border" />
         <PlaygroundSettings />
