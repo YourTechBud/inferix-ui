@@ -6,8 +6,7 @@ import { Heading } from '@/ui/components/heading';
 import PagePanel from '@/ui/components/page-panel';
 import APIKeysPlaceholder from '@/app/(home)/api-keys/_components/APIKeysPlaceholder';
 import APIKeysPage from '@/app/(home)/api-keys/_components/APIKeysPage';
-import { Button } from '@/ui/components/button';
-import { Plus } from 'lucide-react';
+import APIKeyModal from './_components/APIKeyModal';
 
 export interface APIKey {
   id: string;
@@ -41,20 +40,40 @@ const testData = [
 ];
 
 export default function APIKeys() {
-  const [apiKeys, setApiKeys] = useState(testData);
+  const [apiKeys, setApiKeys] = useState<APIKey[]>(testData);
+  const hasKeys = apiKeys && apiKeys.length > 0;
+
+  // todo: remove mock functions
+  const addMockKey = (description: string) => {
+    const id = String(Date.now());
+    const lastDigits = id.slice(0, 6);
+    const created = new Date();
+
+    const newKey = {
+      id,
+      lastDigits,
+      description,
+      created,
+    };
+
+    setApiKeys(prevKeys => (prevKeys ? [...prevKeys, newKey] : [newKey]));
+  };
+
+  const removeMockKey = (id: string) => {
+    setApiKeys(prevKeys => prevKeys?.filter(key => key.id !== id));
+  };
 
   return (
     <PagePanel className="flex h-full flex-col">
       <div className="mb-6 flex justify-between">
         <Heading text="API Keys" />
-        {apiKeys && (
-          <Button>
-            <Plus />
-            Create API Key
-          </Button>
-        )}
+        {hasKeys && <APIKeyModal hasIcon addAPIKey={addMockKey} />}
       </div>
-      {apiKeys ? <APIKeysPage apiKeys={apiKeys} /> : <APIKeysPlaceholder />}
+      {hasKeys ? (
+        <APIKeysPage apiKeys={apiKeys} removeAPIKey={removeMockKey} />
+      ) : (
+        <APIKeysPlaceholder addAPIKey={addMockKey} />
+      )}
     </PagePanel>
   );
 }

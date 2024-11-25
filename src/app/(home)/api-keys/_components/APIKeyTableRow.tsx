@@ -3,14 +3,23 @@ import { Button } from '@/ui/components/button';
 import { Trash2, SquarePen } from 'lucide-react';
 import { APIKey } from '@/app/(home)/api-keys/page';
 
-type APIKeyTableRowProps = APIKey;
+interface APIKeyTableRowProps extends APIKey {
+  removeAPIKey: (id: string) => void;
+}
 
 export default function APIKeyTableRow({
+  id,
   description,
   lastDigits,
   created,
   lastUsed,
+  removeAPIKey,
 }: APIKeyTableRowProps) {
+  const handleDelete = () => {
+    // todo: update to delete from database
+    removeAPIKey(id);
+  };
+
   return (
     <TableRow>
       <TableCell>{description}</TableCell>
@@ -22,7 +31,7 @@ export default function APIKeyTableRow({
           <SquarePen />
         </Button>
         <Button plain size="icon">
-          <Trash2 className="text-red-600" />
+          <Trash2 className="text-red-600" onClick={handleDelete} />
         </Button>
       </TableCell>
     </TableRow>

@@ -1,9 +1,15 @@
 import Image from 'next/image';
 
-import { Button } from '@/ui/components/button';
 import { SecondaryText, Subheading } from '@/ui/components/heading';
+import APIKeyModal from './APIKeyModal';
 
-export default function APIKeysPlaceholder() {
+type APIKeysPlaceholderProps = {
+  addAPIKey: (description: string) => void;
+};
+
+export default function APIKeysPlaceholder({
+  addAPIKey,
+}: APIKeysPlaceholderProps) {
   return (
     <div className="flex flex-grow flex-col items-center justify-center gap-4 sm:gap-6">
       <Image
@@ -17,7 +23,7 @@ export default function APIKeysPlaceholder() {
         <Subheading text="Want Programmatic Access? No Problem!" />
         <SecondaryText text="Manage your API keys. Remember to keep your API keys safe to prevent unauthorized access." />
       </div>
-      <Button>Create API Key</Button>
+      <APIKeyModal addAPIKey={addAPIKey} />
     </div>
   );
 }

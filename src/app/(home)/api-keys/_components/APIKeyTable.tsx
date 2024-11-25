@@ -10,9 +10,13 @@ import { APIKey } from '@/app/(home)/api-keys/page';
 
 type APIKeyTableProps = {
   apiKeys: APIKey[];
+  removeAPIKey: (id: string) => void;
 };
 
-export default function APIKeyTable({ apiKeys }: APIKeyTableProps) {
+export default function APIKeyTable({
+  apiKeys,
+  removeAPIKey,
+}: APIKeyTableProps) {
   return (
     <Table className="mt-10">
       <TableHead>
@@ -26,7 +30,11 @@ export default function APIKeyTable({ apiKeys }: APIKeyTableProps) {
       </TableHead>
       <TableBody>
         {apiKeys.map(apiKey => (
-          <APIKeyTableRow key={apiKey.id} {...apiKey} />
+          <APIKeyTableRow
+            key={apiKey.id}
+            removeAPIKey={removeAPIKey}
+            {...apiKey}
+          />
         ))}
       </TableBody>
     </Table>
