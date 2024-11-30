@@ -1,5 +1,5 @@
-import APIKeyTable from '@/app/(home)/api-keys/_components/APIKeyTable';
 import { APIKey } from '@/app/(home)/api-keys/page';
+import APIKeyTable from '@/ui/widgets/api-keys/APIKeyTable';
 
 type APIKeysPageProps = {
   apiKeys: APIKey[];

@@ -4,9 +4,9 @@ import { useState } from 'react';
 
 import { Heading } from '@/ui/components/heading';
 import PagePanel from '@/ui/components/page-panel';
-import APIKeysPlaceholder from '@/app/(home)/api-keys/_components/APIKeysPlaceholder';
-import APIKeysPage from '@/app/(home)/api-keys/_components/APIKeysPage';
-import APIKeyModal from './_components/APIKeyModal';
+import APIKeyModal from '@/ui/widgets/api-keys/APIKeyModal';
+import APIKeysPage from '@/ui/widgets/api-keys/APIKeysPage';
+import APIKeysPlaceholder from '@/ui/widgets/api-keys/APIKeysPlaceholder';
 
 export interface APIKey {
   id: string;
@@ -34,7 +34,7 @@ const testData = [
   {
     id: '3',
     description: 'api key september',
-    lastDigits: '08gfae',
+    lastDigits: '08fae0',
     created: new Date(2024, 8, 4),
   },
 ];

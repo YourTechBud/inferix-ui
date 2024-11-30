@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { SecondaryText, Subheading } from '@/ui/components/heading';
+
 import APIKeyModal from './APIKeyModal';
 
 type APIKeysPlaceholderProps = {

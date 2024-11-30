@@ -1,7 +1,8 @@
-import { TableRow, TableCell } from '@/ui/components/table';
-import { Button } from '@/ui/components/button';
-import { Trash2, SquarePen } from 'lucide-react';
+import { SquarePen,Trash2 } from 'lucide-react';
+
 import { APIKey } from '@/app/(home)/api-keys/page';
+import { Button } from '@/ui/components/button';
+import { TableCell,TableRow } from '@/ui/components/table';
 
 interface APIKeyTableRowProps extends APIKey {
   removeAPIKey: (id: string) => void;
