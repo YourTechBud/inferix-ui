@@ -1,10 +1,24 @@
-/* import Image from 'next/image';
+'use client';
+import Image from 'next/image';
+import { BiArrowToRight, BiChevronDown, BiEraser } from 'react-icons/bi';
 
 import { Button } from '@/ui/components/button';
+import CustomDropdown from '@/ui/components/custom-dropdown';
+import { Divider } from '@/ui/components/divider';
 import { Heading } from '@/ui/components/headings';
 import PagePanel from '@/ui/components/page-panel';
+import ChatMessage from '@/ui/widgets/playground/chat-message';
+import ChatPrompt from '@/ui/widgets/playground/chat-prompt';
+import PlaygroundSettings from '@/ui/widgets/playground/playground-settings';
 
-export default function Chat() {
+interface Model {
+  id: string;
+  object: string;
+  created: number;
+  owned_by: string;
+}
+
+function NoModelChat() {
   return (
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
@@ -30,50 +44,50 @@ export default function Chat() {
       </div>
     </PagePanel>
   );
-} */
-
-'use client';
-import { BiArrowToRight, BiChevronDown, BiEraser } from 'react-icons/bi';
-
-import { Button } from '@/ui/components/button';
-import CustomDropdown from '@/ui/components/custom-dropdown';
-import { Divider } from '@/ui/components/divider';
-import { Heading } from '@/ui/components/headings';
-import PagePanel from '@/ui/components/page-panel';
-import ChatMessage from '@/ui/widgets/playground/chat-message';
-import ChatPrompt from '@/ui/widgets/playground/chat-prompt';
-import PlaygroundSettings from '@/ui/widgets/playground/playground-settings';
+}
 
 export default function Chat() {
+  // Sample models for testing
+  const sampleModels: Model[] = [
+    {
+      id: '1',
+      object: 'Llama 3.1 Instruct - 8B',
+      created: 1632096000,
+      owned_by: 'Groq',
+    },
+    {
+      id: '2',
+      object: 'GPT 4o',
+      created: 1632096000,
+      owned_by: 'OpenAI',
+    },
+    {
+      id: '3',
+      object: 'Mistral OpenHermes 2.5',
+      created: 1632096000,
+      owned_by: 'Together.ai',
+    },
+  ];
+
+  if (sampleModels.length === 0) {
+    return <NoModelChat />;
+  }
+
   const popoverIconStyles = 'h-5 w-5 fill-zinc-500 group-hover:fill-black';
 
   const trigger = (
-    <div className="flex flex-row items-center justify-between rounded-lg p-2 font-sans text-sm font-medium hover:bg-popover-hover focus:outline-none active:bg-popover-hover">
+    <div className="flex flex-row items-center justify-between rounded-lg border p-2 font-sans text-sm font-medium hover:bg-popover-hover focus:outline-none active:bg-popover-hover">
       Llama 3.1 Instruct
       <BiChevronDown className={`${popoverIconStyles} ml-4`} />
     </div>
   );
 
-  const items = [
-    {
-      label: 'Llama 3.1 Instruct - 8B',
-      sublabel: 'Groq',
-      onClick: () => console.log('Llama 3.1 Instruct - 8B clicked'),
-      icon: <div className="h-4 w-4 rounded-sm bg-gray-300" />,
-    },
-    {
-      label: 'GPT 4o',
-      sublabel: 'OpenAI',
-      onClick: () => console.log('GPT 4o clicked'),
-      icon: <div className="h-4 w-4 rounded-sm bg-gray-300" />,
-    },
-    {
-      label: 'Mistral OpenHermes 2.5',
-      sublabel: 'Together.ai',
-      onClick: () => console.log('Mistral OpenHermes 2.5 clicked'),
-      icon: <div className="h-4 w-4 rounded-sm bg-gray-300" />,
-    },
-  ];
+  const items = sampleModels.map(model => ({
+    label: model.object,
+    sublabel: model.owned_by,
+    onClick: () => console.log(`${model.object} clicked`),
+    icon: <div className="h-4 w-4 rounded-sm bg-gray-300" />,
+  }));
 
   const endButton = (
     <Button className="w-full">

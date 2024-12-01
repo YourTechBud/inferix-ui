@@ -16,7 +16,7 @@ export default function PlaygroundSettings() {
   return (
     <div className="hidden w-full flex-col items-start gap-4 lg:flex lg:w-[250px]">
       <div className="w-full space-y-2">
-        <p>Functions</p>
+        <h1 className="items-start text-sm font-semibold">Functions</h1>
         <Button
           color="secondary"
           className="bg-sidebar-foreground hover:bg-sidebar-hover w-full font-semibold text-black"
