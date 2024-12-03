@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 
-import { Heading } from '@/ui/components/heading';
+import { formatDate } from '@/lib/utils';
+import { Heading } from '@/ui/components/headings';
 import PagePanel from '@/ui/components/page-panel';
 import APIKeyModal from '@/ui/widgets/api-keys/APIKeyModal';
 import APIKeysPage from '@/ui/widgets/api-keys/APIKeysPage';
@@ -12,8 +13,8 @@ export interface APIKey {
   id: string;
   description: string;
   lastDigits: string;
-  created?: Date;
-  lastUsed?: Date;
+  created?: string;
+  lastUsed?: string;
 }
 
 // todo: remove test data
@@ -22,20 +23,20 @@ const testData = [
     id: '1',
     description: 'api key november',
     lastDigits: 'ef0123',
-    created: new Date(2024, 10, 1),
-    lastUsed: new Date(2024, 10, 15),
+    created: formatDate(new Date(2024, 10, 1)),
+    lastUsed: formatDate(new Date(2024, 10, 15)),
   },
   {
     id: '2',
     description: 'api key october',
     lastDigits: '555acd',
-    created: new Date(2024, 9, 31),
+    created: formatDate(new Date(2024, 9, 31)),
   },
   {
     id: '3',
     description: 'api key september',
     lastDigits: '08fae0',
-    created: new Date(2024, 8, 4),
+    created: formatDate(new Date(2024, 8, 4)),
   },
 ];
 
@@ -47,7 +48,7 @@ export default function APIKeys() {
   const addMockKey = (description: string) => {
     const id = String(Date.now());
     const lastDigits = id.slice(0, 6);
-    const created = new Date();
+    const created = formatDate(new Date());
 
     const newKey = {
       id,
@@ -66,7 +67,7 @@ export default function APIKeys() {
   return (
     <PagePanel className="flex h-full flex-col">
       <div className="mb-6 flex justify-between">
-        <Heading text="API Keys" />
+        <Heading variant="page" text="API Keys" />
         {hasKeys && <APIKeyModal hasIcon addAPIKey={addMockKey} />}
       </div>
       {hasKeys ? (

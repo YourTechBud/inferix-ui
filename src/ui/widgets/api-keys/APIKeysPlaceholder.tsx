@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { SecondaryText, Subheading } from '@/ui/components/heading';
+import { Heading } from '@/ui/components/headings';
 
 import APIKeyModal from './APIKeyModal';
 
@@ -21,8 +21,14 @@ export default function APIKeysPlaceholder({
         className="h-auto w-24 object-contain sm:w-[200px]"
       />
       <div className="flex flex-col items-center gap-1 text-center">
-        <Subheading text="Want Programmatic Access? No Problem!" />
-        <SecondaryText text="Manage your API keys. Remember to keep your API keys safe to prevent unauthorized access." />
+        <Heading
+          variant="section"
+          text="Want Programmatic Access? No Problem!"
+        />
+        <Heading
+          variant="secondary"
+          text="Manage your API keys. Remember to keep your API keys safe to prevent unauthorized access."
+        />
       </div>
       <APIKeyModal addAPIKey={addAPIKey} />
     </div>

@@ -57,6 +57,10 @@ const config = {
         popover: {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
+          hover: 'hsl(var(--popover-hover))',
+        },
+        item: {
+          hover: 'hsl(var(--item-hover))',
         },
         card: {
           DEFAULT: 'hsl(var(--card))',
