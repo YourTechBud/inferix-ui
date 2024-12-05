@@ -30,7 +30,7 @@ export default function APIKeysPage({
     const isDefaultPort = isHttpsDefaultPort || isHttpDefaultPort;
 
     setBaseUrl(
-      `${protocol}//${hostname}${isDefaultPort || ':' + port}/inferix/v1/llm`,
+      `${protocol}//${hostname}${isDefaultPort ? '' : ':' + port}/inferix/v1/llm`,
     );
   }, []);
 
