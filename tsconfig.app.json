@@ -20,7 +20,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "paths": {
+      "@/ui/components/*": ["./src/ui/components/*"],
+      "@/ui/widgets/*": ["./src/ui/widgets/*"],
+      "@/*": ["./src/*"]
+    }
   },
+  "exclude": ["./src/**/*.test.ts", "./src/**/*.test.tsx"],
   "include": ["src"]
 }
