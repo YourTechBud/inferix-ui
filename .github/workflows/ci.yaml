@@ -34,5 +34,5 @@ jobs:
       - name: Run the linter
         run: pnpm run lint
 
-      - name: Build Next.js app
+      - name: Build app
         run: pnpm run build
