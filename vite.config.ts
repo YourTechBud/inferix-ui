@@ -4,4 +4,11 @@ import { defineConfig } from 'vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@/ui/components': '/src/ui/components',
+      '@/ui/widgets': '/src/ui/widgets',
+      '@': '/src',
+    },
+  },
 });
