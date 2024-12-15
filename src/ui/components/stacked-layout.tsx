@@ -56,7 +56,7 @@ function MobileSidebar({
           <Headless.DialogPanel
             className={`fixed inset-y-0 ${position}-0 w-full max-w-72 p-2 transition`}
           >
-            <div className="bg-primary flex h-full flex-col rounded-lg shadow-sm ring-1 ring-zinc-950/5 dark:bg-zinc-900 dark:ring-white/10">
+            <div className="flex h-full flex-col rounded-lg bg-primary shadow-sm ring-1 ring-zinc-950/5 dark:bg-zinc-900 dark:ring-white/10">
               <div className="-mb-3 px-4 pt-3">
                 <Headless.CloseButton
                   as={NavbarItem}
@@ -85,7 +85,7 @@ export function StackedLayout({
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
-    <div className="bg-primary lg:bg-primary relative isolate flex min-h-screen w-full flex-col dark:bg-zinc-900 dark:lg:bg-zinc-950">
+    <div className="relative isolate flex min-h-screen w-full flex-col bg-primary dark:bg-zinc-900 lg:bg-primary dark:lg:bg-zinc-950">
       {/* Sidebar on mobile */}
       <MobileSidebar open={showSidebar} close={() => setShowSidebar(false)}>
         {sidebar}

@@ -1,13 +1,11 @@
-'use client';
-
 import { useState } from 'react';
 
 import { formatDate } from '@/lib/utils';
 import { Heading } from '@/ui/components/headings';
 import PagePanel from '@/ui/components/page-panel';
-import APIKeyModal from '@/ui/widgets/api-keys/APIKeyModal';
-import APIKeysPage from '@/ui/widgets/api-keys/APIKeysPage';
-import APIKeysPlaceholder from '@/ui/widgets/api-keys/APIKeysPlaceholder';
+import APIKeysPlaceholder from '@/ui/widgets/api-keys/empty-state';
+import APIKeyModal from '@/ui/widgets/api-keys/modal';
+import APIKeysPage from '@/ui/widgets/api-keys/page';
 
 export interface APIKey {
   id: string;

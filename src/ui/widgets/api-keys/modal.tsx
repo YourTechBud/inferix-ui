@@ -1,5 +1,5 @@
-import { Plus } from 'lucide-react';
-import { useRef,useState } from 'react';
+import { useRef, useState } from 'react';
+import { BiPlus as Plus } from 'react-icons/bi';
 
 import { Button } from '@/ui/components/button';
 import {

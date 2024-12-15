@@ -2,9 +2,10 @@ import { Copy } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { APIKey } from '@/app/(home)/api-keys/page';
 import { Button } from '@/ui/components/button';
-import APIKeyTable from '@/ui/widgets/api-keys/APIKeyTable';
+import APIKeyTable from '@/ui/widgets/api-keys/table';
+
+import { APIKey } from './types';
 
 type APIKeysPageProps = {
   apiKeys: APIKey[];
@@ -51,6 +52,7 @@ export default function APIKeysPage({
                 size="icon"
                 aria-label="Copy base URL"
                 onClick={handleCopy}
+                className="h-9 w-9"
               >
                 <Copy />
               </Button>

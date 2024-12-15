@@ -1,14 +1,5 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
-import {
-  BiConversation,
-  BiData,
-  BiLock,
-  BiLogOutCircle,
-  BiObjectsHorizontalLeft,
-  BiSlider,
-} from 'react-icons/bi';
+import { BiConversation, BiLock } from 'react-icons/bi';
+import { Outlet, useLocation } from 'react-router';
 
 import { cn } from '@/lib/utils';
 import { Navbar } from '@/ui/components/navbar';
@@ -27,26 +18,22 @@ import { SidebarLayout } from '@/ui/components/sidebar-layout';
 import User from '@/ui/widgets/navigation/user';
 import WorkspaceSwitcher from '@/ui/widgets/navigation/workspaceSwitcher';
 
-interface HomeLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function HomeLayout({ children }: HomeLayoutProps) {
-  const pathname = usePathname();
+export default function Layout() {
+  const { pathname } = useLocation();
 
   const playgroundItems = [
-    { icon: BiLogOutCircle, label: 'Retrieval', href: '' },
-    { icon: BiConversation, label: 'Chat', href: '/chat' },
+    // { icon: BiLogOutCircle, label: 'Retrieval', href: '' },
+    { icon: BiConversation, label: 'Chat', href: '/playground/chat' },
   ];
 
-  const dataItems = [
-    { icon: BiObjectsHorizontalLeft, label: 'Pipelines', href: '' },
-    { icon: BiData, label: 'Datasets', href: '' },
-  ];
+  // const dataItems = [
+  //   { icon: BiObjectsHorizontalLeft, label: 'Pipelines', href: '' },
+  //   { icon: BiData, label: 'Datasets', href: '' },
+  // ];
 
   const sidebarBottomItems = [
-    { icon: BiLock, label: 'API Keys', href: '' },
-    { icon: BiSlider, label: 'Connections', href: '' },
+    { icon: BiLock, label: 'API Keys', href: '/api-keys' },
+    // { icon: BiSlider, label: 'Connections', href: '' },
   ];
 
   return (
@@ -81,9 +68,9 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
                   </SidebarItem>
                 ))}
               </SidebarSection>
-              <SidebarDivider />
+              {/* <SidebarDivider /> */}
 
-              <SidebarSection>
+              {/* <SidebarSection>
                 <SidebarHeading>Data</SidebarHeading>
                 {dataItems.map((item, index) => (
                   <SidebarItem
@@ -104,7 +91,8 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
                     </SidebarLabel>
                   </SidebarItem>
                 ))}
-              </SidebarSection>
+              </SidebarSection> */}
+
               <SidebarSpacer />
             </div>
 
@@ -139,7 +127,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
       }
     >
       <div className="flex h-[calc(100vh-64px)] w-full flex-col items-center justify-center overflow-hidden bg-background font-sans antialiased sm:min-h-screen lg:p-2">
-        {children}
+        <Outlet />
       </div>
     </SidebarLayout>
   );

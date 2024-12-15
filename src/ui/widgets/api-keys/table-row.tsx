@@ -1,8 +1,9 @@
-import { SquarePen, Trash2 } from 'lucide-react';
+import { BiEdit, BiTrash } from 'react-icons/bi';
 
-import { APIKey } from '@/app/(home)/api-keys/page';
 import { Button } from '@/ui/components/button';
 import { TableCell, TableRow } from '@/ui/components/table';
+
+import { APIKey } from './types';
 
 interface APIKeyTableRowProps extends APIKey {
   removeAPIKey: (id: string) => void;
@@ -29,10 +30,10 @@ export default function APIKeyTableRow({
       <TableCell>{lastUsed || 'Never'}</TableCell>
       <TableCell className="flex flex-grow-0 justify-end gap-2">
         <Button plain size="icon">
-          <SquarePen />
+          <BiEdit className="h-4 w-4" />
         </Button>
         <Button plain size="icon">
-          <Trash2 className="text-red-600" onClick={handleDelete} />
+          <BiTrash className="size-4 text-red-600" onClick={handleDelete} />
         </Button>
       </TableCell>
     </TableRow>

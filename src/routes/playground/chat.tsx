@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { BiArrowToRight, BiChevronDown, BiEraser } from 'react-icons/bi';
 
 import { Button } from '@/ui/components/button';
@@ -23,7 +22,7 @@ function NoModelChat() {
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
       <div className="flex flex-grow flex-col items-center justify-center gap-4 sm:gap-6">
-        <Image
+        <img
           src="/assets/chat.png"
           alt="chat"
           width={200}

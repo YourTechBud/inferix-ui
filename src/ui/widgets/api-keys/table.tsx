@@ -1,4 +1,3 @@
-import { APIKey } from '@/app/(home)/api-keys/page';
 import {
   Table,
   TableBody,
@@ -6,7 +5,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/ui/components/table';
-import APIKeyTableRow from '@/ui/widgets/api-keys/APIKeyTableRow';
+import APIKeyTableRow from '@/ui/widgets/api-keys/table-row';
+
+import { APIKey } from './types';
 
 type APIKeyTableProps = {
   apiKeys: APIKey[];

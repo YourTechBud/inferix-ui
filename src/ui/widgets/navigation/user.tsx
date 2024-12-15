@@ -1,4 +1,3 @@
-import React from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { BiLogOut, BiUser } from 'react-icons/bi';
 

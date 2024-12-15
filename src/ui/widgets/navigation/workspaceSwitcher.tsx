@@ -1,4 +1,3 @@
-import React from 'react';
 import { BiChevronDown, BiPlus } from 'react-icons/bi';
 
 import { Button } from '@/ui/components/button';

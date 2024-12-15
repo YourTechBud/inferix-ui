@@ -1,8 +1,6 @@
-import Image from 'next/image';
-
 import { Heading } from '@/ui/components/headings';
 
-import APIKeyModal from './APIKeyModal';
+import APIKeyModal from './modal';
 
 type APIKeysPlaceholderProps = {
   addAPIKey: (description: string) => void;
@@ -13,7 +11,7 @@ export default function APIKeysPlaceholder({
 }: APIKeysPlaceholderProps) {
   return (
     <div className="flex flex-grow flex-col items-center justify-center gap-4 sm:gap-6">
-      <Image
+      <img
         src="/assets/apiKeys.png"
         alt="api-keys"
         width={200}
