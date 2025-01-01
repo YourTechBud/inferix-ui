@@ -64,6 +64,7 @@ export default function ChatPrompt({
 
   const handleSend = () => {
     handleSendPrompt();
+    setMessage(''); // clear the message after sending
   };
 
   return (
@@ -79,6 +80,7 @@ export default function ChatPrompt({
         onChange={handleInput}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        aria-multiline="true"
       ></textarea>
       {!isRetrievalPrompt && (
         <div className="mt-4 flex flex-row items-end justify-between">
