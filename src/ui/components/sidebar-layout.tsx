@@ -87,13 +87,13 @@ export function SidebarLayout({
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
-    <div className="relative isolate flex h-svh w-full bg-white dark:bg-zinc-900 max-lg:flex-col lg:bg-zinc-100 dark:lg:bg-zinc-950">
+    <div className="relative isolate flex h-screen w-full bg-white dark:bg-zinc-900 max-lg:flex-col lg:bg-zinc-100 dark:lg:bg-zinc-950">
       {/* Sidebar on desktop */}
       <div className="fixed inset-y-0 left-0 w-64 max-lg:hidden">{sidebar}</div>
 
       {/* Sidebar on mobile */}
       <MobileSidebar open={showSidebar} close={() => setShowSidebar(false)}>
-        <div className="overflow-y-auto">{sidebar}</div>
+        <div className="h-full justify-between overflow-y-auto">{sidebar}</div>
       </MobileSidebar>
 
       {/* Navbar on mobile */}
@@ -110,9 +110,9 @@ export function SidebarLayout({
       </header>
 
       {/* Content */}
-      <main className="flex flex-1 lg:min-w-0 lg:pl-64 lg:pr-2">
+      <main className="flex h-full w-full flex-1 lg:min-w-0 lg:pl-64 lg:pr-2">
         <div className="grow touch-none">
-          <div className="mx-auto flex space-x-3 lg:h-[100vh]">{children}</div>
+          <div className="mx-auto flex h-full space-x-3">{children}</div>
         </div>
       </main>
     </div>
