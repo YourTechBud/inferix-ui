@@ -14,7 +14,7 @@ export default function PlaygroundSettings() {
   const [topP, setTopP] = useState(1);
 
   return (
-    <div className="hidden w-full flex-col items-start gap-4 lg:flex lg:w-[250px]">
+    <div className="hidden w-full flex-col items-start gap-4 md:w-[10vw] lg:flex lg:w-[18vw]">
       <div className="w-full space-y-2">
         <h1 className="items-start text-sm font-semibold">Functions</h1>
         <Button
