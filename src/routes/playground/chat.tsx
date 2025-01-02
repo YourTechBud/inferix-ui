@@ -121,8 +121,8 @@ export default function Chat() {
 
             <div className="flex h-[68vh] md:h-[70vh] lg:h-[75vh] flex-col justify-between">
               <div className="flex-1 overflow-y-auto" >
-                <ChatMessage variant="user" content="Hi how are you?" className="w-full" />
                 <ChatMessage variant="system"/>
+                <ChatMessage variant="user" content="Hi how are you?" className="w-full" />
                 <ChatMessage variant="assistant" content='Hi how can i help you?'/>
               </div>
               <div className='mt-4'>
