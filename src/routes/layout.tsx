@@ -126,7 +126,7 @@ export default function Layout() {
         </Sidebar>
       }
     >
-      <div className="flex w-full flex-col items-center justify-center overflow-hidden bg-background font-sans antialiased sm:min-h-screen lg:p-2">
+      <div className="flex h-[calc(100vh-64px)] w-full flex-col items-center justify-center overflow-hidden bg-background font-sans antialiased sm:min-h-screen lg:p-2">
         <Outlet />
       </div>
     </SidebarLayout>
