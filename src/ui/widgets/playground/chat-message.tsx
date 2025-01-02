@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
+import { BiRefresh,BiTrash } from 'react-icons/bi';
 
 import { cn } from '@/lib/utils';
+import { Button } from '@/ui/components/button';
 
 interface ChatMessageProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string;
@@ -16,6 +18,7 @@ export default function ChatMessage({
 }: ChatMessageProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const inputClassName = cn(
     'w-full text-sm placeholder:text-muted-foreground border-none focus-visible:outline-none resize-none disabled:cursor-not-allowed disabled:opacity-50',
@@ -46,11 +49,29 @@ export default function ChatMessage({
   };
 
   return (
-    <div className={divClassName} ref={divRef}>
-      <div className="w-full px-3 py-2 bg-white">
+    <div className={divClassName} ref={divRef} onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
+      <div className="w-full flex flex-row justify-between px-3 py-2 bg-white items-center h-10">
         <p className="text-base font-medium text-zinc-700">
           {variant.toUpperCase()}
         </p>
+        <div className="flex flex-row gap-4 min-w-[60px] items-center justify-end">
+          {isHovered && variant === 'user' && (
+            <Button plain className="p-0 h-auto" size="sm">
+              <BiTrash className="h-4 w-4 md:h-5 md:w-5 fill-zinc-500 hover:fill-zinc-700" />
+            </Button>
+          )}
+          {isHovered && variant === 'assistant' && (
+            <>
+              <Button plain className="p-0 h-auto" size="sm">
+                <BiRefresh className="h-4 w-4 md:h-5 md:w-5 fill-zinc-500 hover:fill-zinc-700" />
+              </Button>
+              <Button plain className="p-0 h-auto" size="sm">
+                <BiTrash className="h-4 w-4 md:h-5 md:w-5 fill-zinc-500 hover:fill-zinc-700" />
+              </Button>
+            </>
+          )}
+        </div>
       </div>
 
       {variant === 'system' ? (<div className="px-3 pb-2">
