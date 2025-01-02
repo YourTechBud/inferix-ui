@@ -99,9 +99,9 @@ export default function Chat() {
   return (
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
-      <div className="mb-4 flex flex-grow flex-row gap-4 sm:gap-6 lg:mb-0">
+      <div className="mb-4 flex flex-grow flex-row gap-4 sm:gap-6 lg:mb-0 h-full">
         <div className="mt-4 flex h-full flex-grow flex-col justify-between sm:w-full md:w-[25vw] lg:w-[45vw]">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 h-full flex-grow">
             <div className="flex flex-row gap-4">
               <CustomDropdown
                 trigger={trigger}
@@ -119,10 +119,90 @@ export default function Chat() {
               </Button>
             </div>
 
-            <ChatMessage variant="system" className="w-full" />
+            <div className="flex flex-col justify-between h-full overflow-y-auto">
+              <div className="overflow-y-auto" >
+                <ChatMessage variant="user" content="litellm
+
+react-router supports server side rendering
+routes.tsx: 
+
+index route just does navigation to redirect to /playground/chat
+routes directory where all the pages will be
+
+LOOK UP REACT ROUTER : nested routes - using the LIBRARY part(pure client side - spa(single page application) of it not the FRAMEWORK(server side capabilities). If we want to ship this as a app esp desktop app so we are using the library.
+
+whenever we used children in layouts now we use outlet
+a layout is now just a [page and the pages we need inside that layout just go in as outlets
+
+spa - can be run locally directly on the server 
+this will allow us to use the app offline and also just get it in the app store instead of from the web (like next js does)
+
+be able to use inferix in vscode so we need sth purely client side
+
+tanstack query to get the data dynamically 
+can use useQueries and useMutations
+don't need a state management library separately like redux, react query does it for us litellm
+
+react-router supports server side rendering
+routes.tsx: 
+
+index route just does navigation to redirect to /playground/chat
+routes directory where all the pages will be
+
+LOOK UP REACT ROUTER : nested routes - using the LIBRARY part(pure client side - spa(single page application) of it not the FRAMEWORK(server side capabilities). If we want to ship this as a app esp desktop app so we are using the library.
+
+whenever we used children in layouts now we use outlet
+a layout is now just a [page and the pages we need inside that layout just go in as outlets
+
+spa - can be run locally directly on the server 
+this will allow us to use the app offline and also just get it in the app store instead of from the web (like next js does)
+
+be able to use inferix in vscode so we need sth purely client side
+
+tanstack query to get the data dynamically 
+can use useQueries and useMutations
+don't need a state management library separately like redux, react query does it for us litellm
+
+react-router supports server side rendering
+routes.tsx: 
+
+index route just does navigation to redirect to /playground/chat
+routes directory where all the pages will be
+
+LOOK UP REACT ROUTER : nested routes - using the LIBRARY part(pure client side - spa(single page application) of it not the FRAMEWORK(server side capabilities). If we want to ship this as a app esp desktop app so we are using the library.
+
+whenever we used children in layouts now we use outlet
+a layout is now just a [page and the pages we need inside that layout just go in as outlets
+
+spa - can be run locally directly on the server 
+this will allow us to use the app offline and also just get it in the app store instead of from the web (like next js does)
+
+be able to use inferix in vscode so we need sth purely client side
+
+tanstack query to get the data dynamically 
+can use useQueries and useMutations
+don't need a state management library separately like redux, react query does it for us routes directory where all the pages will be
+
+LOOK UP REACT ROUTER : nested routes - using the LIBRARY part(pure client side - spa(single page application) of it not the FRAMEWORK(server side capabilities). If we want to ship this as a app esp desktop app so we are using the library.
+
+whenever we used children in layouts now we use outlet
+a layout is now just a [page and the pages we need inside that layout just go in as outlets
+
+spa - can be run locally directly on the server 
+this will allow us to use the app offline and also just get it in the app store instead of from the web (like next js does)
+
+be able to use inferix in vscode so we need sth purely client side
+
+tanstack query to get the data dynamically 
+can use useQueries and useMutations
+don't need a state management library separately like redux, react query does it for us" className="w-full" /></div>
+              <div className='pt-2 pb-4 '>
+                <ChatPrompt handleSendPrompt={() => {}} />
+              </div>
+            </div>
           </div>
 
-          <ChatPrompt handleSendPrompt={() => {}} />
+         
         </div>
         <Divider orientation="vertical" className="border" />
         <PlaygroundSettings />

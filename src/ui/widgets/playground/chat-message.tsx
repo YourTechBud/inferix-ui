@@ -6,11 +6,13 @@ import { cn } from '@/lib/utils';
 interface ChatMessageProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string;
   variant: 'system' | 'user' | 'assistant';
+  content?: string;
 }
 
 export default function ChatMessage({
   className,
-  variant = 'assistant',
+  variant = 'system',
+  content='',
 }: ChatMessageProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
@@ -45,15 +47,13 @@ export default function ChatMessage({
 
   return (
     <div className={divClassName} ref={divRef}>
-      <div className="sticky left-0 top-0 w-full px-3 py-2">
+      <div className="sticky left-0 top-0 w-full px-3 py-2 bg-white z-10">
         <p className="text-base font-medium text-zinc-700">
-          {(variant === 'system' && 'SYSTEM') ||
-            (variant === 'user' && 'USER') ||
-            'ASSISTANT'}
+          {variant.toUpperCase()}
         </p>
       </div>
 
-      <div className="px-3 pb-2">
+      {variant === 'system' ? (<div className="px-3 pb-2">
         <textarea
           id="message"
           className={inputClassName}
@@ -64,7 +64,11 @@ export default function ChatMessage({
           onChange={handleInput}
           aria-multiline="true"
         />
-      </div>
+      </div>) : (
+        <div className="px-3 pb-2 flex flex-col">
+          <p className="text-base">{content}</p>
+        </div>
+      )}
     </div>
   );
 }

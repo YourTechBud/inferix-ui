@@ -110,9 +110,9 @@ export function SidebarLayout({
       </header>
 
       {/* Content */}
-      <main className="flex h-full w-full flex-1 lg:min-w-0 lg:pl-64 lg:pr-2">
+      <main className="flex h-full w-full flex-1 lg:min-w-0 lg:pl-64 lg:pr-2 overflow-hidden ">
         <div className="grow touch-none">
-          <div className="mx-auto flex h-full space-x-3">{children}</div>
+          <div className="mx-auto flex h-full space-x-3  ">{children}</div>
         </div>
       </main>
     </div>
