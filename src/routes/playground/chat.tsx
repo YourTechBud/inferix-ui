@@ -99,8 +99,8 @@ export default function Chat() {
   return (
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
-      <div className="mb-4 flex flex-grow flex-row gap-4 sm:gap-6 lg:mb-0">
-        <div className="mt-4 flex h-full flex-grow flex-col justify-between sm:w-full md:w-[25vw] lg:w-[45vw]">
+      <div className="flex flex-grow flex-row gap-4 sm:gap-6">
+        <div className="mt-4 flex flex-grow flex-col justify-between space-y-4 lg:w-[750px]">
           <div className="flex flex-col gap-4">
             <div className="flex flex-row gap-4">
               <CustomDropdown
