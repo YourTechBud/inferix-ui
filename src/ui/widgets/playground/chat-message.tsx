@@ -10,7 +10,7 @@ interface ChatMessageProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export default function ChatMessage({
   className,
-  variant = 'assistant'
+  variant = 'assistant',
 }: ChatMessageProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
@@ -19,8 +19,11 @@ export default function ChatMessage({
     'w-full text-sm placeholder:text-muted-foreground border-none focus-visible:outline-none resize-none overflow-hidden disabled:cursor-not-allowed disabled:opacity-50 h-10 pt-6 pb-6',
     className,
   );
-  const divClassName = cn('relative resize-none overflow-hidden min-h-10 max-h-40 rounded-md bg-white bg-white ring-offset-background focus-visible:outline-none px-3 pt-2 pb-4', 
-    variant === 'system' && 'border border-input', className);
+  const divClassName = cn(
+    'flex flex-col relative resize-none overflow-hidden min-h-10 max-h-24 rounded-md bg-white bg-white ring-offset-background focus-visible:outline-none px-3 pt-2 pb-4',
+    variant === 'system' && 'border border-input',
+    className,
+  );
 
   const [message, setMessage] = useState('');
   const adjustHeights = () => {
@@ -31,10 +34,7 @@ export default function ChatMessage({
     }
     if (divRef.current && textareaRef.current) {
       divRef.current.style.height = 'auto';
-      divRef.current.style.overflow = 'auto';
-      divRef.current.style.height = `${
-        textareaRef.current.scrollHeight + 12 //adding extra space for buttons
-      }px`;
+      divRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   };
 
@@ -42,7 +42,7 @@ export default function ChatMessage({
     setMessage(e.target.value);
     adjustHeights();
   };
-  
+
   return (
     <div className={divClassName} ref={divRef}>
       <p className="absolute left-0 top-0 px-3 py-2 text-base font-medium text-zinc-700">
