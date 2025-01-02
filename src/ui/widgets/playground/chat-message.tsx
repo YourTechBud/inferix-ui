@@ -23,7 +23,7 @@ export default function ChatMessage({
   );
 
   const divClassName = cn(
-    'flex flex-col relative min-h-[64px] rounded-md bg-white ring-offset-background focus-visible:outline-none',
+    'flex flex-col relative min-h-[64px] rounded-md bg-white ring-offset-background focus-visible:outline-none mb-4',
     variant === 'system' && 'border border-input',
     className,
   );
@@ -47,7 +47,7 @@ export default function ChatMessage({
 
   return (
     <div className={divClassName} ref={divRef}>
-      <div className="sticky left-0 top-0 w-full px-3 py-2 bg-white z-10">
+      <div className="w-full px-3 py-2 bg-white">
         <p className="text-base font-medium text-zinc-700">
           {variant.toUpperCase()}
         </p>

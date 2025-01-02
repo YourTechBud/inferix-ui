@@ -119,84 +119,13 @@ export default function Chat() {
               </Button>
             </div>
 
-            <div className="flex flex-col justify-between h-full overflow-y-auto">
-              <div className="overflow-y-auto" >
-                <ChatMessage variant="user" content="litellm
-
-react-router supports server side rendering
-routes.tsx: 
-
-index route just does navigation to redirect to /playground/chat
-routes directory where all the pages will be
-
-LOOK UP REACT ROUTER : nested routes - using the LIBRARY part(pure client side - spa(single page application) of it not the FRAMEWORK(server side capabilities). If we want to ship this as a app esp desktop app so we are using the library.
-
-whenever we used children in layouts now we use outlet
-a layout is now just a [page and the pages we need inside that layout just go in as outlets
-
-spa - can be run locally directly on the server 
-this will allow us to use the app offline and also just get it in the app store instead of from the web (like next js does)
-
-be able to use inferix in vscode so we need sth purely client side
-
-tanstack query to get the data dynamically 
-can use useQueries and useMutations
-don't need a state management library separately like redux, react query does it for us litellm
-
-react-router supports server side rendering
-routes.tsx: 
-
-index route just does navigation to redirect to /playground/chat
-routes directory where all the pages will be
-
-LOOK UP REACT ROUTER : nested routes - using the LIBRARY part(pure client side - spa(single page application) of it not the FRAMEWORK(server side capabilities). If we want to ship this as a app esp desktop app so we are using the library.
-
-whenever we used children in layouts now we use outlet
-a layout is now just a [page and the pages we need inside that layout just go in as outlets
-
-spa - can be run locally directly on the server 
-this will allow us to use the app offline and also just get it in the app store instead of from the web (like next js does)
-
-be able to use inferix in vscode so we need sth purely client side
-
-tanstack query to get the data dynamically 
-can use useQueries and useMutations
-don't need a state management library separately like redux, react query does it for us litellm
-
-react-router supports server side rendering
-routes.tsx: 
-
-index route just does navigation to redirect to /playground/chat
-routes directory where all the pages will be
-
-LOOK UP REACT ROUTER : nested routes - using the LIBRARY part(pure client side - spa(single page application) of it not the FRAMEWORK(server side capabilities). If we want to ship this as a app esp desktop app so we are using the library.
-
-whenever we used children in layouts now we use outlet
-a layout is now just a [page and the pages we need inside that layout just go in as outlets
-
-spa - can be run locally directly on the server 
-this will allow us to use the app offline and also just get it in the app store instead of from the web (like next js does)
-
-be able to use inferix in vscode so we need sth purely client side
-
-tanstack query to get the data dynamically 
-can use useQueries and useMutations
-don't need a state management library separately like redux, react query does it for us routes directory where all the pages will be
-
-LOOK UP REACT ROUTER : nested routes - using the LIBRARY part(pure client side - spa(single page application) of it not the FRAMEWORK(server side capabilities). If we want to ship this as a app esp desktop app so we are using the library.
-
-whenever we used children in layouts now we use outlet
-a layout is now just a [page and the pages we need inside that layout just go in as outlets
-
-spa - can be run locally directly on the server 
-this will allow us to use the app offline and also just get it in the app store instead of from the web (like next js does)
-
-be able to use inferix in vscode so we need sth purely client side
-
-tanstack query to get the data dynamically 
-can use useQueries and useMutations
-don't need a state management library separately like redux, react query does it for us" className="w-full" /></div>
-              <div className='pt-2 pb-4 '>
+            <div className="flex h-[68vh] md:h-[70vh] lg:h-[75vh] flex-col justify-between">
+              <div className="flex-1 overflow-y-auto" >
+                <ChatMessage variant="user" content="Hi how are you?" className="w-full" />
+                <ChatMessage variant="system"/>
+                <ChatMessage variant="assistant" content='Hi how can i help you?'/>
+              </div>
+              <div className='mt-4'>
                 <ChatPrompt handleSendPrompt={() => {}} />
               </div>
             </div>
