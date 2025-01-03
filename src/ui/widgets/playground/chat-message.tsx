@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
-import { BiRefresh,BiTrash } from 'react-icons/bi';
+import { BiRefresh, BiTrash } from 'react-icons/bi';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/button';
@@ -14,7 +14,7 @@ interface ChatMessageProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export default function ChatMessage({
   className,
   variant = 'system',
-  content='',
+  content = '',
 }: ChatMessageProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
@@ -49,44 +49,52 @@ export default function ChatMessage({
   };
 
   return (
-    <div className={divClassName} ref={divRef} onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}>
-      <div className="w-full flex flex-row justify-between px-3 py-2 bg-white items-center h-10">
+    <div
+      className={divClassName}
+      ref={divRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="flex h-10 w-full flex-row items-center justify-between bg-white px-3 py-2">
         <p className="text-base font-medium text-zinc-700">
           {variant.toUpperCase()}
         </p>
-        <div className="flex flex-row gap-4 min-w-[60px] items-center justify-end">
+        <div className="flex min-w-[60px] flex-row items-center justify-end gap-4">
           {isHovered && variant === 'user' && (
-            <Button plain className="p-0 h-auto" size="sm">
-              <BiTrash className="h-4 w-4 md:h-5 md:w-5 fill-zinc-500 hover:fill-zinc-700" />
+            <Button plain className="h-auto p-0" size="sm">
+              <BiTrash className="h-4 w-4 fill-zinc-500 hover:fill-zinc-700 md:h-5 md:w-5" />
             </Button>
           )}
           {isHovered && variant === 'assistant' && (
             <>
-              <Button plain className="p-0 h-auto" size="sm">
-                <BiRefresh className="h-4 w-4 md:h-5 md:w-5 fill-zinc-500 hover:fill-zinc-700" />
+              <Button plain className="h-auto p-0" size="sm">
+                <BiRefresh className="h-4 w-4 fill-zinc-500 hover:fill-zinc-700 md:h-5 md:w-5" />
               </Button>
-              <Button plain className="p-0 h-auto" size="sm">
-                <BiTrash className="h-4 w-4 md:h-5 md:w-5 fill-zinc-500 hover:fill-zinc-700" />
+              <Button plain className="h-auto p-0" size="sm">
+                <BiTrash className="h-4 w-4 fill-zinc-500 hover:fill-zinc-700 md:h-5 md:w-5" />
               </Button>
             </>
           )}
         </div>
       </div>
 
-      {variant === 'system' ? (<div className="px-3 pb-2">
-        <textarea
-          id="message"
-          className={inputClassName}
-          ref={textareaRef}
-          value={message}
-          rows={1}
-          placeholder={variant === 'system' ? 'Enter System Instructions' : ''}
-          onChange={handleInput}
-          aria-multiline="true"
-        />
-      </div>) : (
-        <div className="px-3 pb-2 flex flex-col">
+      {variant === 'system' ? (
+        <div className="px-3 pb-2">
+          <textarea
+            id="message"
+            className={inputClassName}
+            ref={textareaRef}
+            value={message}
+            rows={1}
+            placeholder={
+              variant === 'system' ? 'Enter System Instructions' : ''
+            }
+            onChange={handleInput}
+            aria-multiline="true"
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col px-3 pb-2">
           <p className="text-base">{content}</p>
         </div>
       )}
