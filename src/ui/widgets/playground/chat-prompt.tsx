@@ -11,11 +11,13 @@ import RadioButtons from '../../components/radio-buttons';
 interface ChatPromptProps {
   handleSendPrompt: () => void;
   isRetrievalPrompt?: boolean;
+  className?: string;
 }
 
 export default function ChatPrompt({
   handleSendPrompt,
   isRetrievalPrompt = false,
+  className,
 }: ChatPromptProps) {
   const [message, setMessage] = useState('');
   const [isFocused, setIsFocused] = useState(false); //use to track if textarea is in focus
@@ -24,6 +26,7 @@ export default function ChatPrompt({
 
   //styles for components
   const divClassName = cn(
+    className,
     'flex flex-col w-full rounded-lg border-2 border-input bg-white ring-offset-background focus-visible:outline-none resize-none overflow-hidden p-4 min-h-28 max-h-52',
     isFocused
       ? 'ring-2 ring-primary ring-opacity-50'
@@ -64,6 +67,7 @@ export default function ChatPrompt({
 
   const handleSend = () => {
     handleSendPrompt();
+    setMessage(''); // clear the message after sending
   };
 
   return (
@@ -79,6 +83,7 @@ export default function ChatPrompt({
         onChange={handleInput}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        aria-multiline="true"
       ></textarea>
       {!isRetrievalPrompt && (
         <div className="mt-4 flex flex-row items-end justify-between">

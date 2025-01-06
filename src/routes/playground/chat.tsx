@@ -99,9 +99,9 @@ export default function Chat() {
   return (
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
-      <div className="flex flex-grow flex-row gap-4 sm:gap-6">
-        <div className="mt-4 flex flex-grow flex-col justify-between space-y-4 lg:w-[750px]">
-          <div className="flex flex-col gap-4">
+      <div className="mb-4 flex h-full flex-grow flex-row gap-4 sm:gap-6 lg:mb-0">
+        <div className="mt-4 flex h-full flex-grow flex-col justify-between sm:w-full md:w-[25vw] lg:w-[45vw]">
+          <div className="flex h-full flex-grow flex-col gap-4">
             <div className="flex flex-row gap-4">
               <CustomDropdown
                 trigger={trigger}
@@ -119,10 +119,24 @@ export default function Chat() {
               </Button>
             </div>
 
-            <ChatMessage variant="system" className="w-full" />
+            <div className="flex h-[68vh] flex-col justify-between md:h-[70vh] lg:h-[75vh]">
+              <div className="flex-1 overflow-y-auto">
+                <ChatMessage variant="system" />
+                <ChatMessage
+                  variant="user"
+                  content="Hi how are you?"
+                  className="w-full"
+                />
+                <ChatMessage
+                  variant="assistant"
+                  content="Hi how can i help you?"
+                />
+              </div>
+              <div className="mt-4">
+                <ChatPrompt handleSendPrompt={() => {}} />
+              </div>
+            </div>
           </div>
-
-          <ChatPrompt handleSendPrompt={() => {}} />
         </div>
         <Divider orientation="vertical" className="border" />
         <PlaygroundSettings />
