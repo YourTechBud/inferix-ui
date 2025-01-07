@@ -65,9 +65,7 @@ export default function Layout() {
                       )}
                     />
                     <SidebarLabel
-                      className={
-                        pathname === item.href ? '' : 'text-zinc-500'
-                      }
+                      className={pathname === item.href ? '' : 'text-zinc-500'}
                     >
                       {item.label}
                     </SidebarLabel>
@@ -117,9 +115,7 @@ export default function Layout() {
                       )}
                     />
                     <SidebarLabel
-                      className={
-                        pathname === item.href ? '' : 'text-zinc-500'
-                      }
+                      className={pathname === item.href ? '' : 'text-zinc-500'}
                     >
                       {item.label}
                     </SidebarLabel>

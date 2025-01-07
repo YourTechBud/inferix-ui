@@ -28,7 +28,6 @@ export default function CustomDropdown({
   itemClassName = 'w-full text-left flex items-center rounded-lg p-2 hover:bg-item-hover focus:outline-none',
   itemTextClassName = 'font-medium text-sm',
 }: CustomDropdownProps) {
-
   return (
     <div className={containerClassName}>
       <Popover>

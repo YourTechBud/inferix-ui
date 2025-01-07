@@ -10,4 +10,4 @@ export function getApiBaseUrl(): string {
 export function getApiUrl(path: string): string {
   const baseUrl = getApiBaseUrl();
   return `${baseUrl}${path}`;
-} 
+}
