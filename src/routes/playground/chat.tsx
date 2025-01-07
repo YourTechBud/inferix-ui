@@ -45,7 +45,7 @@ function NoModelChat() {
   );
 }
 
-export default function Chat() {
+export default function Component() {
   // Sample models for testing
   const sampleModels: Model[] = [
     {
@@ -99,8 +99,8 @@ export default function Chat() {
   return (
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
-      <div className="mb-4 flex h-full flex-grow flex-row gap-4 sm:gap-6 lg:mb-0">
-        <div className="mt-4 flex h-full flex-grow flex-col justify-between sm:w-full md:w-[25vw] lg:w-[45vw]">
+      <div className="mb-4 mt-4 flex h-full flex-grow flex-row gap-4 sm:gap-6 lg:mb-0">
+        <div className="flex h-full flex-grow flex-col justify-between sm:w-full md:w-[25vw] lg:w-[45vw]">
           <div className="flex h-full flex-grow flex-col gap-4">
             <div className="flex flex-row gap-4">
               <CustomDropdown
@@ -119,7 +119,7 @@ export default function Chat() {
               </Button>
             </div>
 
-            <div className="flex h-[68vh] flex-col justify-between md:h-[70vh] lg:h-[75vh]">
+            <div className="flex h-full flex-col justify-between">
               <div className="flex-1 overflow-y-auto">
                 <ChatMessage variant="system" />
                 <ChatMessage

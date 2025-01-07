@@ -15,8 +15,13 @@ import {
   SidebarSpacer,
 } from '@/ui/components/sidebar';
 import { SidebarLayout } from '@/ui/components/sidebar-layout';
+import { Toaster } from '@/ui/components/sonner';
 import User from '@/ui/widgets/navigation/user';
 import WorkspaceSwitcher from '@/ui/widgets/navigation/workspaceSwitcher';
+
+export function links() {
+  return [{ rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' }];
+}
 
 export default function Layout() {
   const { pathname } = useLocation();
@@ -37,40 +42,43 @@ export default function Layout() {
   ];
 
   return (
-    <SidebarLayout
-      navbar={<Navbar></Navbar>}
-      sidebar={
-        <Sidebar>
-          <SidebarHeader>
-            <WorkspaceSwitcher />
-          </SidebarHeader>
-          <SidebarBody className="flex flex-grow flex-col justify-between">
-            <div>
-              <SidebarSection>
-                <SidebarHeading>Playground</SidebarHeading>
-                {playgroundItems.map((item, index) => (
-                  <SidebarItem
-                    key={index}
-                    href={item.href}
-                    current={pathname === item.href}
-                  >
-                    <item.icon
-                      className={cn(
-                        'h-4 w-4',
-                        pathname === item.href ? '' : 'text-zinc-500',
-                      )}
-                    />
-                    <SidebarLabel
-                      className={pathname === item.href ? '' : 'text-zinc-500'}
+    <div className="min-h-screen font-sans antialiased">
+      <SidebarLayout
+        navbar={<Navbar></Navbar>}
+        sidebar={
+          <Sidebar>
+            <SidebarHeader>
+              <WorkspaceSwitcher />
+            </SidebarHeader>
+            <SidebarBody className="flex flex-grow flex-col justify-between">
+              <div>
+                <SidebarSection>
+                  <SidebarHeading>Playground</SidebarHeading>
+                  {playgroundItems.map((item, index) => (
+                    <SidebarItem
+                      key={index}
+                      href={item.href}
+                      current={pathname === item.href}
                     >
-                      {item.label}
-                    </SidebarLabel>
-                  </SidebarItem>
-                ))}
-              </SidebarSection>
-              {/* <SidebarDivider /> */}
+                      <item.icon
+                        className={cn(
+                          'h-4 w-4',
+                          pathname === item.href ? '' : 'text-zinc-500',
+                        )}
+                      />
+                      <SidebarLabel
+                        className={
+                          pathname === item.href ? '' : 'text-zinc-500'
+                        }
+                      >
+                        {item.label}
+                      </SidebarLabel>
+                    </SidebarItem>
+                  ))}
+                </SidebarSection>
+                {/* <SidebarDivider /> */}
 
-              {/* <SidebarSection>
+                {/* <SidebarSection>
                 <SidebarHeading>Data</SidebarHeading>
                 {dataItems.map((item, index) => (
                   <SidebarItem
@@ -93,42 +101,46 @@ export default function Layout() {
                 ))}
               </SidebarSection> */}
 
-              <SidebarSpacer />
-            </div>
+                <SidebarSpacer />
+              </div>
 
-            <div className="mt-auto">
-              <SidebarSection>
-                {sidebarBottomItems.map((item, index) => (
-                  <SidebarItem
-                    key={index}
-                    href={item.href}
-                    current={pathname === item.href}
-                  >
-                    <item.icon
-                      className={cn(
-                        'h-4 w-4',
-                        pathname === item.href ? '' : 'text-zinc-500',
-                      )}
-                    />
-                    <SidebarLabel
-                      className={pathname === item.href ? '' : 'text-zinc-500'}
+              <div className="mt-auto">
+                <SidebarSection>
+                  {sidebarBottomItems.map((item, index) => (
+                    <SidebarItem
+                      key={index}
+                      href={item.href}
+                      current={pathname === item.href}
                     >
-                      {item.label}
-                    </SidebarLabel>
-                  </SidebarItem>
-                ))}
-              </SidebarSection>
+                      <item.icon
+                        className={cn(
+                          'h-4 w-4',
+                          pathname === item.href ? '' : 'text-zinc-500',
+                        )}
+                      />
+                      <SidebarLabel
+                        className={
+                          pathname === item.href ? '' : 'text-zinc-500'
+                        }
+                      >
+                        {item.label}
+                      </SidebarLabel>
+                    </SidebarItem>
+                  ))}
+                </SidebarSection>
 
-              <SidebarDivider />
-              <User />
-            </div>
-          </SidebarBody>
-        </Sidebar>
-      }
-    >
-      <div className="flex w-full flex-col items-center justify-center bg-background font-sans antialiased sm:min-h-screen lg:p-2">
-        <Outlet />
-      </div>
-    </SidebarLayout>
+                <SidebarDivider />
+                <User />
+              </div>
+            </SidebarBody>
+          </Sidebar>
+        }
+      >
+        <div className="flex w-full flex-col items-center justify-center bg-background font-sans antialiased sm:min-h-screen lg:p-2">
+          <Outlet />
+        </div>
+      </SidebarLayout>
+      <Toaster />
+    </div>
   );
 }
