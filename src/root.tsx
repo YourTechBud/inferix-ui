@@ -1,4 +1,8 @@
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+
+import { queryClient } from './lib/client';
+import { Toaster } from './ui/components/sonner';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,7 +15,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className="min-h-screen font-sans antialiased">
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+        </div>
+        <Toaster />
         <ScrollRestoration />
         <Scripts />
       </body>

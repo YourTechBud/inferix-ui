@@ -1,20 +1,26 @@
 'use client';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { BiArrowToRight, BiChevronDown, BiEraser } from 'react-icons/bi';
 
+import { getModelsQuery, queryClient } from '@/lib/client';
 import { Button } from '@/ui/components/button';
 import CustomDropdown from '@/ui/components/custom-dropdown';
 import { Divider } from '@/ui/components/divider';
 import { Heading } from '@/ui/components/headings';
 import PagePanel from '@/ui/components/page-panel';
+import { Spinner } from '@/ui/components/spinner';
 import ChatMessage from '@/ui/widgets/playground/chat-message';
 import ChatPrompt from '@/ui/widgets/playground/chat-prompt';
 import PlaygroundSettings from '@/ui/widgets/playground/playground-settings';
 
-interface Model {
-  id: string;
-  object: string;
-  created: number;
-  owned_by: string;
+
+export async function clientLoader() {
+  const modelsQuery = getModelsQuery();
+
+  return {
+    models: queryClient.getQueryData(modelsQuery.queryKey) ?? (await queryClient.fetchQuery(modelsQuery)),
+  };
 }
 
 function NoModelChat() {
@@ -46,53 +52,42 @@ function NoModelChat() {
 }
 
 export default function Component() {
-  // Sample models for testing
-  const sampleModels: Model[] = [
-    {
-      id: '1',
-      object: 'Llama 3.1 Instruct - 8B',
-      created: 1632096000,
-      owned_by: 'Groq',
-    },
-    {
-      id: '2',
-      object: 'GPT 4o',
-      created: 1632096000,
-      owned_by: 'OpenAI',
-    },
-    {
-      id: '3',
-      object: 'Mistral OpenHermes 2.5',
-      created: 1632096000,
-      owned_by: 'Together.ai',
-    },
-  ];
+  const { data: models, isFetching: isModelDataFetching } = useQuery(getModelsQuery());
 
-  if (sampleModels.length === 0) {
+  // TODO: This should be a separate page, the loader should redirect to the page
+  if (models?.data.length === 0) {
     return <NoModelChat />;
   }
+
+  const [selectedModel, setSelectedModel] = useState<string>(models?.data[0].id ?? '');
 
   const popoverIconStyles = 'h-5 w-5 fill-zinc-500 group-hover:fill-black';
 
   const trigger = (
     <div className="flex flex-row items-center justify-between rounded-lg border p-2 font-sans text-sm font-medium hover:bg-popover-hover focus:outline-none active:bg-popover-hover">
-      Llama 3.1 Instruct
+      {selectedModel}
       <BiChevronDown className={`${popoverIconStyles} ml-4`} />
     </div>
   );
 
-  const items = sampleModels.map(model => ({
-    label: model.object,
+  const items = models?.data.sort((a, b) => a.id.localeCompare(b.id)).map(model => ({
+    label: model.id,
     sublabel: model.owned_by,
-    onClick: () => console.log(`${model.object} clicked`),
+    onClick: () => setSelectedModel(model.id),
     icon: <div className="h-4 w-4 rounded-sm bg-gray-300" />,
   }));
 
   const endButton = (
-    <Button className="w-full">
-      <div className="flex flex-row items-center gap-1">
-        <p className="sm:text-medium text-sm">Refresh Model List</p>
-      </div>
+    // Maybe this button with a loader should be a separate component cause it's going to be used in multiple places
+    <Button className="w-full" onClick={() => {
+      // Invalidating the query will trigger a refetch
+      queryClient.invalidateQueries(getModelsQuery());
+    }}>
+      {isModelDataFetching ? <Spinner /> : (
+        <div className="flex flex-row items-center gap-1">
+          <p className="sm:text-medium text-sm">Refresh Model List</p>
+        </div>
+      )}
     </Button>
   );
 
@@ -104,8 +99,9 @@ export default function Component() {
           <div className="flex h-full flex-grow flex-col gap-4">
             <div className="flex flex-row gap-4">
               <CustomDropdown
+                containerClassName="w-56" // TODO: Make sure the text inside doesn't overflow
                 trigger={trigger}
-                items={items}
+                items={items ?? []}
                 endButton={endButton}
               />
               <Button color="white">
@@ -133,7 +129,7 @@ export default function Component() {
                 />
               </div>
               <div className="mt-4">
-                <ChatPrompt handleSendPrompt={() => {}} />
+                <ChatPrompt handleSendPrompt={() => { }} />
               </div>
             </div>
           </div>
