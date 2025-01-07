@@ -59,7 +59,7 @@ export default function ChatMessage({
         <p className="text-base font-medium text-zinc-700">
           {variant.toUpperCase()}
         </p>
-        <div className="flex min-w-[60px] flex-row items-center justify-end gap-4">
+        <div className="flex min-w-[60px] flex-row items-center justify-end gap-1">
           {isHovered && variant === 'user' && (
             <Button plain className="h-auto p-0" size="sm">
               <BiTrash className="h-4 w-4 fill-zinc-500 hover:fill-zinc-700 md:h-5 md:w-5" />

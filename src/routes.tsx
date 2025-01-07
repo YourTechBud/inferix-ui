@@ -1,20 +1,20 @@
-import { Navigate, Route, Routes } from 'react-router';
+import {
+  index,
+  layout,
+  prefix,
+  route,
+  type RouteConfig,
+} from '@react-router/dev/routes';
 
-import APIKeys from './routes/api-keys';
-import RootLayout from './routes/layout';
-import Chat from './routes/playground/chat';
-
-export default function Root() {
-  return (
-    <Routes>
-      <Route path="/" element={<RootLayout />}>
-        <Route index element={<Navigate to="/playground/chat" />} />
-        <Route path="playground">
-          <Route index element={<Navigate to="/playground/chat" />} />
-          <Route path="chat" element={<Chat />} />
-        </Route>
-        <Route path="api-keys" element={<APIKeys />} />
-      </Route>
-    </Routes>
-  );
-}
+export default [
+  layout('./routes/layout.tsx', [
+    index('./routes/index.tsx'),
+    ...prefix('/playground', [
+      index('./routes/playground/index.tsx'),
+      route('/chat', './routes/playground/chat.tsx'),
+    ]),
+    route('/api-keys', './routes/api-keys.tsx'),
+  ]),
+  // * matches all URLs, the ? makes it optional so it will match / as well
+  route('*?', 'catchall.tsx'),
+] satisfies RouteConfig;

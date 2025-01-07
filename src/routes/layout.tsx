@@ -18,6 +18,10 @@ import { SidebarLayout } from '@/ui/components/sidebar-layout';
 import User from '@/ui/widgets/navigation/user';
 import WorkspaceSwitcher from '@/ui/widgets/navigation/workspaceSwitcher';
 
+export function links() {
+  return [{ rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' }];
+}
+
 export default function Layout() {
   const { pathname } = useLocation();
 

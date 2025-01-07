@@ -1,4 +1,5 @@
 'use client';
+import { CloseButton } from '@headlessui/react';
 import React from 'react';
 
 import { Popover, PopoverButton, PopoverPanel } from '@/ui/components/popover';
@@ -33,7 +34,7 @@ export default function CustomDropdown({
         <PopoverButton>{trigger}</PopoverButton>
         <PopoverPanel className={panelClassName}>
           {items.map((item, index) => (
-            <button
+            <CloseButton
               key={index}
               className={itemClassName}
               onClick={item.onClick}
@@ -49,7 +50,7 @@ export default function CustomDropdown({
                   )}
                 </div>
               </div>
-            </button>
+            </CloseButton>
           ))}
           {endButton && <div className="mt-2 w-full">{endButton}</div>}
         </PopoverPanel>

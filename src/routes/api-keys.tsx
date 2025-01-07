@@ -38,7 +38,7 @@ const testData = [
   },
 ];
 
-export default function APIKeys() {
+export default function Component() {
   const [apiKeys, setApiKeys] = useState<APIKey[]>(testData);
   const hasKeys = apiKeys && apiKeys.length > 0;
 
