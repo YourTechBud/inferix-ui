@@ -5,7 +5,13 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config({
-  ignores: ['build/**', 'dist/**', 'node_modules/**', '.react-router/**'],
+  ignores: [
+    'build/**',
+    'dist/**',
+    'node_modules/**',
+    '.react-router/**',
+    'public/mockServiceWorker.js',
+  ],
   extends: [
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
