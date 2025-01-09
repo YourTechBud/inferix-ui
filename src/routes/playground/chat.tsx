@@ -105,7 +105,7 @@ export default function Component() {
   return (
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
-      <div className="mb-4 mt-4 flex h-full flex-grow flex-row gap-4 sm:gap-6 lg:mb-0">
+      <div className="mb-4 mt-4 flex flex-grow flex-row gap-4 sm:max-h-[70vh] sm:gap-6 lg:mb-0 lg:max-h-[68vh] 2xl:max-h-[90vh]">
         <div className="flex h-full flex-grow flex-col justify-between sm:w-full md:w-[25vw] lg:w-[45vw]">
           <div className="flex h-full flex-grow flex-col gap-4">
             <div className="flex flex-row gap-4">
@@ -137,6 +137,20 @@ export default function Component() {
                 <ChatMessage
                   variant="assistant"
                   content="Hi how can i help you?"
+                />
+                <ChatMessage
+                  variant="assistant"
+                  content="Hi how can i help you?"
+                />
+                <ChatMessage
+                  variant="user"
+                  content="Hi how are you?"
+                  className="w-full"
+                />
+                <ChatMessage
+                  variant="user"
+                  content="Hi how are you?"
+                  className="w-full"
                 />
               </div>
               <div className="mt-4">

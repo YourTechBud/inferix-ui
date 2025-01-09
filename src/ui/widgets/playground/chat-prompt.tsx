@@ -27,7 +27,7 @@ export default function ChatPrompt({
   //styles for components
   const divClassName = cn(
     className,
-    'flex flex-col w-full rounded-lg border-2 border-input bg-white ring-offset-background focus-visible:outline-none resize-none overflow-hidden p-4 min-h-28 max-h-52',
+    'flex flex-col w-full rounded-lg border-2 border-input bg-white ring-offset-background focus-visible:outline-none resize-none overflow-hidden p-4 min-h-28 max-h-40',
     isFocused
       ? 'ring-2 ring-primary ring-opacity-50'
       : 'focus-visible:ring-2 focus-visible:ring-ring',

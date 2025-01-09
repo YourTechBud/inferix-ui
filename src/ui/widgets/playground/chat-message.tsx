@@ -9,20 +9,25 @@ interface ChatMessageProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string;
   variant: 'system' | 'user' | 'assistant';
   content?: string;
+  onContentChange?: (content: string) => void;
 }
 
 export default function ChatMessage({
   className,
   variant = 'system',
   content = '',
+  onContentChange,
 }: ChatMessageProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [message, setMessage] = useState(content);
+  const [isEditing, setIsEditing] = useState(false);
 
   const inputClassName = cn(
-    'w-full text-sm placeholder:text-muted-foreground border-none focus-visible:outline-none resize-none disabled:cursor-not-allowed disabled:opacity-50',
+    'w-full text-sm md:text-base placeholder:text-muted-foreground border-none focus-visible:outline-none resize-none disabled:cursor-not-allowed disabled:opacity-50',
     className,
+    variant === 'system' && 'text-sm',
   );
 
   const divClassName = cn(
@@ -30,8 +35,6 @@ export default function ChatMessage({
     variant === 'system' && 'border border-input',
     className,
   );
-
-  const [message, setMessage] = useState('');
 
   const adjustHeights = () => {
     if (textareaRef.current) {
@@ -45,7 +48,20 @@ export default function ChatMessage({
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
+    if (onContentChange) {
+      onContentChange(e.target.value);
+    }
     adjustHeights();
+  };
+
+  const onMessageClick = () => {
+    if (variant !== 'system') {
+      setIsEditing(true);
+    }
+  };
+
+  const onMessageBlur = () => {
+    setIsEditing(false);
   };
 
   return (
@@ -56,7 +72,7 @@ export default function ChatMessage({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex h-10 w-full flex-row items-center justify-between bg-white px-3 py-2">
-        <p className="text-base font-medium text-zinc-700">
+        <p className="text-sm font-medium text-zinc-700 md:text-base">
           {variant.toUpperCase()}
         </p>
         <div className="flex min-w-[60px] flex-row items-center justify-end gap-1">
@@ -78,24 +94,37 @@ export default function ChatMessage({
         </div>
       </div>
 
-      {variant === 'system' ? (
-        <div className="px-3 pb-2">
+      {variant === 'system' || isEditing ? (
+        <div
+          className={cn(
+            variant !== 'system' &&
+              'rounded-md border border-input pt-2 ring-offset-background',
+            'px-3 pb-2',
+          )}
+        >
           <textarea
             id="message"
             className={inputClassName}
             ref={textareaRef}
             value={message}
-            rows={1}
+            rows={variant === 'system' ? 1 : 2}
             placeholder={
               variant === 'system' ? 'Enter System Instructions' : ''
             }
             onChange={handleInput}
+            onBlur={onMessageBlur}
+            autoFocus={isEditing}
             aria-multiline="true"
           />
         </div>
       ) : (
         <div className="flex flex-col px-3 pb-2">
-          <p className="text-base">{content}</p>
+          <p
+            className="cursor-pointer sm:text-sm md:text-base"
+            onClick={onMessageClick}
+          >
+            {message}
+          </p>
         </div>
       )}
     </div>
