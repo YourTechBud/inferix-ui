@@ -1,8 +1,14 @@
+import CodeBlockLowLight from '@tiptap/extension-code-block-lowlight';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import go from 'highlight.js/lib/languages/go';
+import js from 'highlight.js/lib/languages/javascript';
+import python from 'highlight.js/lib/languages/python';
+import ts from 'highlight.js/lib/languages/typescript';
+import {common,createLowlight} from 'lowlight';
 import * as React from 'react';
 import { useRef, useState } from 'react';
 import { BiRefresh, BiTrash } from 'react-icons/bi';
@@ -17,6 +23,13 @@ interface ChatMessageProps extends React.InputHTMLAttributes<HTMLInputElement> {
   content?: string;
   onContentChange?: (content: string) => void;
 }
+
+const lowlight = createLowlight(common);
+//current coding languages supported by editor
+lowlight.register('python', python);
+lowlight.register('go', go);
+lowlight.register('js', js);
+lowlight.register('ts', ts);
 
 export default function ChatMessage({
   className,
@@ -41,6 +54,7 @@ export default function ChatMessage({
         },
       }),
       StarterKit.configure({
+        codeBlock: false,
         bulletList: {
           HTMLAttributes: {
             class: 'pl-5 list-disc text-gray-800',
@@ -48,7 +62,7 @@ export default function ChatMessage({
         },
         orderedList: {
           HTMLAttributes: {
-            class: 'pl-5 list-decimal text-gray-800 dark:text-white',
+            class: 'pl-5 list-decimal text-black dark:text-white',
           },
         },
         heading: {
@@ -61,7 +75,7 @@ export default function ChatMessage({
         },
         paragraph: {
           HTMLAttributes: {
-            class: 'text-gray-900 dark:text-white',
+            class: 'text-black dark:text-white',
           },
         },
       }),
@@ -74,11 +88,17 @@ export default function ChatMessage({
         emptyEditorClass:
           'is-editor-empty before:content-[attr(data-placeholder)] before:text-gray-500 before:float-left before:pointer-events-none',
       }),
+      CodeBlockLowLight.configure({
+        lowlight,
+        HTMLAttributes: {
+          class: 'tiptap',
+        },
+      }),
     ],
     editorProps: {
       attributes: {
         class:
-          'transition w-full text-sm border-none focus:ring-0 outline-none',
+          'transition w-full text-sm border-none focus:ring-0 outline-none max-w-none prose prose-sm sm:prose lg:prose-lg mx-auto',
       },
     },
     onUpdate: ({ editor }) => {

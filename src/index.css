@@ -74,3 +74,67 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* All styling for code in chat-message editor */
+.tiptap:first-child {
+  @apply mt-0;
+}
+
+.tiptap pre {
+  @apply bg-zinc-950/5 text-black rounded-lg p-4 my-6 font-mono;
+}
+
+.tiptap pre code {
+  @apply bg-transparent text-inherit text-sm p-0;
+}
+
+.tiptap .hljs-comment,
+.tiptap .hljs-quote {
+  @apply text-gray-600;
+}
+
+.tiptap .hljs-variable,
+.tiptap .hljs-template-variable,
+.tiptap .hljs-attribute,
+.tiptap .hljs-tag,
+.tiptap .hljs-regexp,
+.tiptap .hljs-link,
+.tiptap .hljs-name,
+.tiptap .hljs-selector-id,
+.tiptap .hljs-selector-class {
+  @apply text-red-600;
+}
+
+.tiptap .hljs-number,
+.tiptap .hljs-meta,
+.tiptap .hljs-built_in,
+.tiptap .hljs-builtin-name,
+.tiptap .hljs-literal,
+.tiptap .hljs-type,
+.tiptap .hljs-params {
+  @apply text-green-900;
+}
+
+.tiptap .hljs-string,
+.tiptap .hljs-symbol,
+.tiptap .hljs-bullet {
+  @apply text-primary;
+}
+
+.tiptap .hljs-title,
+.tiptap .hljs-section {
+  @apply text-yellow-700;
+}
+
+.tiptap .hljs-keyword,
+.tiptap .hljs-selector-tag {
+  @apply text-blue-600;
+}
+
+.tiptap .hljs-emphasis {
+  @apply italic;
+}
+
+.tiptap .hljs-strong {
+  @apply font-bold;
+}
