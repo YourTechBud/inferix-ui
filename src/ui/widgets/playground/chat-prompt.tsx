@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import React from 'react';
 import { BiPlay } from 'react-icons/bi';
+import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/button';
@@ -9,7 +10,7 @@ import { Button } from '@/ui/components/button';
 import RadioButtons from '../../components/radio-buttons';
 
 interface ChatPromptProps {
-  handleSendPrompt: () => void;
+  handleSendPrompt: (message: string) => void;
   isRetrievalPrompt?: boolean;
   className?: string;
 }
@@ -46,9 +47,8 @@ export default function ChatPrompt({
     }
     if (divRef.current && textareaRef.current) {
       divRef.current.style.height = 'auto';
-      divRef.current.style.height = `${
-        textareaRef.current.scrollHeight + 80 //adding extra space for buttons
-      }px`;
+      const newHeight = textareaRef.current.scrollHeight + 80; //adding extra space for buttons
+      divRef.current.style.height = `${newHeight}px`;
     }
   };
 
@@ -66,8 +66,20 @@ export default function ChatPrompt({
   };
 
   const handleSend = () => {
-    handleSendPrompt();
+    if (message.trim() === '') {
+      toast.error('Please enter a message');
+      return;
+    }
+    handleSendPrompt(message.trim());
     setMessage(''); // clear the message after sending
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Check for both Ctrl and Cmd (Meta key)
+    if (e.ctrlKey && e.key === 'Enter') {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   return (
@@ -84,6 +96,7 @@ export default function ChatPrompt({
         onFocus={handleFocus}
         onBlur={handleBlur}
         aria-multiline="true"
+        onKeyDown={handleKeyDown}
       ></textarea>
       {!isRetrievalPrompt && (
         <div className="mt-4 flex flex-row items-end justify-between">
