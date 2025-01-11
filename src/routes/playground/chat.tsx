@@ -74,6 +74,7 @@ export default function Component() {
       content: 'You are an ai helpful assistant',
     },
   ]);
+  const [isStreaming, setIsStreaming] = useState(false);
 
   const [selectedModel, setSelectedModel] = useState<string>(
     models?.data[0].id ?? '',
@@ -84,6 +85,7 @@ export default function Component() {
     insertAtIndex?: number,
   ) => {
     try {
+      setIsStreaming(true);
       const stream = streamChatCompletion(messagesForCompletion, {
         model: selectedModel,
       });
@@ -126,6 +128,8 @@ export default function Component() {
     } catch (error) {
       console.error('Error in chat completion:', error);
       toast.error('Error in chat completion');
+    } finally {
+      setIsStreaming(false);
     }
   };
 
@@ -244,7 +248,10 @@ export default function Component() {
               id="chat-prompt-container"
               className="absolute bottom-4 left-0 right-0 bg-white"
             >
-              <ChatPrompt handleSendPrompt={handleSendPrompt} />
+              <ChatPrompt
+                handleSendPrompt={handleSendPrompt}
+                isStreaming={isStreaming}
+              />
             </div>
           </div>
         </div>

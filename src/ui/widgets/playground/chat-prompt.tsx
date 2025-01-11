@@ -6,19 +6,20 @@ import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/button';
+import { Spinner } from '@/ui/components/spinner';
 
 import RadioButtons from '../../components/radio-buttons';
 
 interface ChatPromptProps {
   handleSendPrompt: (message: string) => void;
-  isRetrievalPrompt?: boolean;
   className?: string;
+  isStreaming: boolean;
 }
 
 export default function ChatPrompt({
   handleSendPrompt,
-  isRetrievalPrompt = false,
   className,
+  isStreaming = false,
 }: ChatPromptProps) {
   const [message, setMessage] = useState('');
   const [isFocused, setIsFocused] = useState(false); //use to track if textarea is in focus
@@ -66,10 +67,17 @@ export default function ChatPrompt({
   };
 
   const handleSend = () => {
+    // Don't send message when streaming
+    if (isStreaming) {
+      return;
+    }
+
+    // Return if message is empty
     if (message.trim() === '') {
       toast.error('Please enter a message');
       return;
     }
+
     handleSendPrompt(message.trim());
     setMessage(''); // clear the message after sending
   };
@@ -98,32 +106,25 @@ export default function ChatPrompt({
         aria-multiline="true"
         onKeyDown={handleKeyDown}
       ></textarea>
-      {!isRetrievalPrompt && (
-        <div className="mt-4 flex flex-row items-end justify-between">
-          <RadioButtons option1="User" option2="Assistant" />
+      <div className="mt-4 flex flex-row items-end justify-between">
+        <RadioButtons option1="User" option2="Assistant" />
 
-          <div className="flex flex-row gap-2">
-            <Button color="secondary" size="sm">
-              Add
-            </Button>
+        <div className="flex flex-row gap-2">
+          <Button className="w-20" color="secondary" size="sm">
+            Add
+          </Button>
 
-            <Button size="sm" onClick={handleSend}>
-              <div className="flex flex-row items-center gap-2">
+          <Button className="w-20" size="sm" onClick={handleSend} disabled={isStreaming}>
+            {isStreaming ? (
+              <Spinner />
+            ) : (
+              <div className="flex flex-row items-center text-center gap-2">
                 Run <BiPlay className="h-4 w-4" />
               </div>
-            </Button>
-          </div>
-        </div>
-      )}
-      {isRetrievalPrompt && (
-        <div className="mt-4 flex flex-row items-end justify-end">
-          <Button size="sm" onClick={handleSend}>
-            <div className="flex flex-row items-center gap-2">
-              Run <BiPlay className="h-4 w-4" />
-            </div>
+            )}
           </Button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
