@@ -24,7 +24,7 @@ export interface LLMSettings {
  */
 export async function* streamChatCompletion(
   messages: ChatMessage[],
-  settings: LLMSettings
+  settings: LLMSettings,
 ): AsyncGenerator<string> {
   const openai = new OpenAI({
     baseURL: getApiUrl('/inferix/v1/llm'),

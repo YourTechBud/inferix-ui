@@ -4,7 +4,12 @@ import { useState } from 'react';
 import { BiArrowToRight, BiChevronDown, BiEraser } from 'react-icons/bi';
 import { toast } from 'sonner';
 
-import { ChatMessage, getModelsQuery, queryClient, streamChatCompletion } from '@/lib/client';
+import {
+  ChatMessage,
+  getModelsQuery,
+  queryClient,
+  streamChatCompletion,
+} from '@/lib/client';
 import { Button } from '@/ui/components/button';
 import CustomDropdown from '@/ui/components/custom-dropdown';
 import { Divider } from '@/ui/components/divider';
@@ -63,21 +68,25 @@ export default function Component() {
   }
 
   // State for messages
-  const [messages, setMessages] = useState<ChatMessage[]>([{
-    role: 'system',
-    content: 'You are an ai helpful assistant',
-  }]);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      role: 'system',
+      content: 'You are an ai helpful assistant',
+    },
+  ]);
 
   const [selectedModel, setSelectedModel] = useState<string>(
     models?.data[0].id ?? '',
   );
 
-  const streamResponse = async (messagesForCompletion: ChatMessage[], insertAtIndex?: number) => {
+  const streamResponse = async (
+    messagesForCompletion: ChatMessage[],
+    insertAtIndex?: number,
+  ) => {
     try {
-      const stream = streamChatCompletion(
-        messagesForCompletion,
-        { model: selectedModel }
-      );
+      const stream = streamChatCompletion(messagesForCompletion, {
+        model: selectedModel,
+      });
 
       // Create assistant message with empty content
       const assistantMessage: ChatMessage = {
@@ -103,7 +112,10 @@ export default function Component() {
         // Update the assistant's message with accumulated content
         setMessages(prev => {
           const newMessages = [...prev];
-          const targetIndex = insertAtIndex !== undefined ? insertAtIndex + 1 : newMessages.length - 1;
+          const targetIndex =
+            insertAtIndex !== undefined
+              ? insertAtIndex + 1
+              : newMessages.length - 1;
           newMessages[targetIndex] = {
             role: 'assistant',
             content: fullContent,
@@ -178,7 +190,10 @@ export default function Component() {
       <Heading variant="page" text="Chat" />
       <div className="mb-4 mt-4 flex h-full flex-grow flex-row gap-4 sm:gap-6 lg:mb-0">
         <div className="flex h-full flex-grow flex-col sm:w-full md:w-[25vw] lg:w-[45vw]">
-          <div id="chat-container" className="flex h-full gap-4 flex-col relative">
+          <div
+            id="chat-container"
+            className="relative flex h-full flex-col gap-4"
+          >
             <div className="flex flex-row gap-4">
               <CustomDropdown
                 containerClassName="w-56" // TODO: Make sure the text inside doesn't overflow
@@ -204,17 +219,18 @@ export default function Component() {
                   variant={message.role}
                   content={message.content}
                   handleRegenerate={() => handleRegenerate(index)}
-                  setContent={(newContent) => {
-                    setMessages((prevMessages) => {
+                  setContent={newContent => {
+                    setMessages(prevMessages => {
                       const updatedMessages = [...prevMessages];
                       updatedMessages[index].content = newContent;
                       return updatedMessages;
                     });
                   }}
                   onDelete={() => {
-                    setMessages((prevMessages) => {
+                    setMessages(prevMessages => {
                       // Don't allow deleting the system message
-                      if (index === 0 && message.role === 'system') return prevMessages;
+                      if (index === 0 && message.role === 'system')
+                        return prevMessages;
 
                       const updatedMessages = [...prevMessages];
                       updatedMessages.splice(index, 1);
@@ -224,7 +240,10 @@ export default function Component() {
                 />
               ))}
             </div>
-            <div id="chat-prompt-container" className="absolute bottom-4 left-0 right-0 bg-white">
+            <div
+              id="chat-prompt-container"
+              className="absolute bottom-4 left-0 right-0 bg-white"
+            >
               <ChatPrompt handleSendPrompt={handleSendPrompt} />
             </div>
           </div>

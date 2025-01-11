@@ -37,7 +37,6 @@ export default function ChatMessageBox({
     className,
   );
 
-
   const adjustHeights = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -72,7 +71,12 @@ export default function ChatMessageBox({
           )}
           {isHovered && variant === 'user' && (
             <>
-              <Button plain className="h-auto p-0" size="sm" onClick={handleRegenerate}>
+              <Button
+                plain
+                className="h-auto p-0"
+                size="sm"
+                onClick={handleRegenerate}
+              >
                 <BiRefresh className="h-4 w-4 fill-zinc-500 hover:fill-zinc-700 md:h-5 md:w-5" />
               </Button>
               <Button plain className="h-auto p-0" size="sm" onClick={onDelete}>
@@ -90,9 +94,7 @@ export default function ChatMessageBox({
           ref={textareaRef}
           value={content}
           rows={1}
-          placeholder={
-            variant === 'system' ? 'Enter System Instructions' : ''
-          }
+          placeholder={variant === 'system' ? 'Enter System Instructions' : ''}
           onChange={handleInput}
           aria-multiline="true"
         />
