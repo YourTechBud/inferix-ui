@@ -7,6 +7,7 @@ interface RadioButtonsProps {
   option2: string;
   option1Children?: ReactNode; //content to be displayed when option1 is selected
   option2Children?: ReactNode;
+  onChange?: (selectedOption: string) => void;
 }
 
 export default function RadioButtons({
@@ -14,9 +15,10 @@ export default function RadioButtons({
   option2,
   option1Children,
   option2Children,
+  onChange,
 }: RadioButtonsProps) {
   return (
-    <TabGroup>
+    <TabGroup onChange={(index) => onChange?.(index === 0 ? option1 : option2)}>
       <TabList>
         <Tab index={0} title={option1} />
         <Tab index={1} title={option2} />

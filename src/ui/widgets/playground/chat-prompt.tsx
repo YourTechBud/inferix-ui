@@ -12,16 +12,19 @@ import RadioButtons from '../../components/radio-buttons';
 
 interface ChatPromptProps {
   handleSendPrompt: (message: string) => void;
+  handleAddMessage: (message: string, role: 'user' | 'assistant') => void;
   className?: string;
   isStreaming: boolean;
 }
 
 export default function ChatPrompt({
   handleSendPrompt,
+  handleAddMessage,
   className,
   isStreaming = false,
 }: ChatPromptProps) {
   const [message, setMessage] = useState('');
+  const [selectedRole, setSelectedRole] = useState<'user' | 'assistant'>('user');
   const [isFocused, setIsFocused] = useState(false); //use to track if textarea is in focus
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
@@ -90,6 +93,16 @@ export default function ChatPrompt({
     }
   };
 
+  const handleAdd = () => {
+    if (message.trim() === '') {
+      toast.error('Please enter a message');
+      return;
+    }
+
+    handleAddMessage(message.trim(), selectedRole);
+    setMessage(''); // clear the message after adding
+  };
+
   return (
     <div className={divClassName} ref={divRef}>
       <textarea
@@ -107,10 +120,14 @@ export default function ChatPrompt({
         onKeyDown={handleKeyDown}
       ></textarea>
       <div className="mt-4 flex flex-row items-end justify-between">
-        <RadioButtons option1="User" option2="Assistant" />
+        <RadioButtons
+          option1="User"
+          option2="Assistant"
+          onChange={(selected: string) => setSelectedRole(selected === 'User' ? 'user' : 'assistant')}
+        />
 
         <div className="flex flex-row gap-2">
-          <Button className="w-20" color="secondary" size="sm">
+          <Button className="w-20" color="secondary" size="sm" onClick={handleAdd}>
             Add
           </Button>
 

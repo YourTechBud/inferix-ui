@@ -20,6 +20,11 @@ import ChatMessageBox from '@/ui/widgets/playground/chat-message';
 import ChatPrompt from '@/ui/widgets/playground/chat-prompt';
 import PlaygroundSettings from '@/ui/widgets/playground/playground-settings';
 
+const DEFAULT_SYSTEM_MESSAGE: ChatMessage = {
+  role: 'system',
+  content: 'You are a helpful AI assistant',
+};
+
 export async function clientLoader() {
   const modelsQuery = getModelsQuery();
 
@@ -68,12 +73,7 @@ export default function Component() {
   }
 
   // State for messages
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: 'system',
-      content: 'You are an ai helpful assistant',
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([DEFAULT_SYSTEM_MESSAGE]);
   const [isStreaming, setIsStreaming] = useState(false);
 
   const [selectedModel, setSelectedModel] = useState<string>(
@@ -152,6 +152,15 @@ export default function Component() {
     await streamResponse([...messages, userMessage]);
   };
 
+  const handleAddMessage = (content: string, role: 'user' | 'assistant') => {
+    setMessages(prev => [...prev, { role, content }]);
+  };
+
+  const handleClearConversation = () => {
+    // Reset to initial state with just the system message
+    setMessages([DEFAULT_SYSTEM_MESSAGE]);
+  };
+
   const popoverIconStyles = 'h-5 w-5 fill-zinc-500 group-hover:fill-black';
 
   const trigger = (
@@ -200,7 +209,7 @@ export default function Component() {
           >
             <div className="flex flex-row gap-4">
               <CustomDropdown
-                containerClassName="w-56" // TODO: Make sure the text inside doesn't overflow
+                containerClassName="w-56"
                 trigger={trigger}
                 items={items ?? []}
                 endButton={endButton}
@@ -208,7 +217,7 @@ export default function Component() {
               <Button color="white">
                 <BiArrowToRight className="h-5 w-5 fill-black" />
               </Button>
-              <Button color="secondary">
+              <Button color="secondary" onClick={handleClearConversation}>
                 <div className="flex flex-row items-center gap-1">
                   <BiEraser className="h-5 w-5 fill-white" />
                   <p className="sm:text-small text-xs">Clear Conversation</p>
@@ -250,6 +259,7 @@ export default function Component() {
             >
               <ChatPrompt
                 handleSendPrompt={handleSendPrompt}
+                handleAddMessage={handleAddMessage}
                 isStreaming={isStreaming}
               />
             </div>

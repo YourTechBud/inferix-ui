@@ -13,23 +13,27 @@ const TabContext = createContext<TabContext>({ index: 0 });
 interface TabGroupProps {
   className?: string;
   children: ReactNode;
+  onChange?: (index: number) => void;
 }
 
-export function TabGroup({ className, children }: TabGroupProps) {
+export function TabGroup({ className, children, onChange }: TabGroupProps) {
   const [index, setIndex] = useState(0);
   return (
     <TabContext.Provider value={{ index, setIndex }}>
-      <_TabGroup className={className}>{children}</_TabGroup>
+      <_TabGroup className={className} onChange={onChange}>{children}</_TabGroup>
     </TabContext.Provider>
   );
 }
-function _TabGroup({ className, children }: TabGroupProps) {
+function _TabGroup({ className, children, onChange }: TabGroupProps) {
   const { index, setIndex } = useContext(TabContext);
   return (
     <Headless.TabGroup
       className={className}
       selectedIndex={index}
-      onChange={setIndex}
+      onChange={(newIndex: number) => {
+        setIndex?.(newIndex);
+        onChange?.(newIndex);
+      }}
     >
       {children}
     </Headless.TabGroup>
