@@ -138,20 +138,6 @@ export default function Component() {
                   variant="assistant"
                   content="Hi how can i help you?"
                 />
-                <ChatMessage
-                  variant="assistant"
-                  content="Hi how can i help you?"
-                />
-                <ChatMessage
-                  variant="user"
-                  content="Hi how are you?"
-                  className="w-full"
-                />
-                <ChatMessage
-                  variant="user"
-                  content="Hi how are you?"
-                  className="w-full"
-                />
               </div>
               <div className="mt-4">
                 <ChatPrompt handleSendPrompt={() => {}} />

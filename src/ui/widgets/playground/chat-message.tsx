@@ -1,6 +1,12 @@
+import Link from '@tiptap/extension-link';
+import Placeholder from '@tiptap/extension-placeholder';
+import Underline from '@tiptap/extension-underline';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 import * as React from 'react';
 import { useRef, useState } from 'react';
 import { BiRefresh, BiTrash } from 'react-icons/bi';
+import { Markdown } from 'tiptap-markdown';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/button';
@@ -18,20 +24,76 @@ export default function ChatMessage({
   content = '',
   onContentChange,
 }: ChatMessageProps) {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLDivElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [message, setMessage] = useState(content);
   const [isEditing, setIsEditing] = useState(false);
 
-  const inputClassName = cn(
-    'w-full text-sm md:text-base placeholder:text-muted-foreground border-none focus-visible:outline-none resize-none disabled:cursor-not-allowed disabled:opacity-50',
-    className,
-    variant === 'system' && 'text-sm',
-  );
+  const editor = useEditor({
+    content: message,
+    extensions: [
+      Underline,
+      Link.configure({
+        HTMLAttributes: {
+          class:
+            'transition-[color] text-primary hover:underline cursor-pointer',
+        },
+      }),
+      StarterKit.configure({
+        bulletList: {
+          HTMLAttributes: {
+            class: 'pl-5 list-disc text-gray-800',
+          },
+        },
+        orderedList: {
+          HTMLAttributes: {
+            class: 'pl-5 list-decimal text-gray-800 dark:text-white',
+          },
+        },
+        heading: {
+          levels: [1, 2, 3],
+        },
+        bold: {
+          HTMLAttributes: {
+            class: 'font-semibold',
+          },
+        },
+        paragraph: {
+          HTMLAttributes: {
+            class: 'text-gray-900 dark:text-white',
+          },
+        },
+      }),
+      Markdown.configure({
+        transformPastedText: true,
+      }),
+      Placeholder.configure({
+        placeholder:
+          (variant === 'system' && 'Enter System Instructions') || '',
+        emptyEditorClass:
+          'is-editor-empty before:content-[attr(data-placeholder)] before:text-gray-500 before:float-left before:pointer-events-none',
+      }),
+    ],
+    editorProps: {
+      attributes: {
+        class:
+          'transition w-full text-sm border-none focus:ring-0 outline-none',
+      },
+    },
+    onUpdate: ({ editor }) => {
+      setMessage(editor.getHTML());
+      if (onContentChange) {
+        onContentChange(editor.getHTML());
+      }
+      if (variant === 'system') {
+        adjustHeights();
+      }
+    },
+  });
 
   const divClassName = cn(
-    'flex flex-col relative min-h-[64px] rounded-md bg-white ring-offset-background focus-visible:outline-none mb-4',
+    'flex flex-col relative rounded-md bg-white ring-offset-background focus-visible:outline-none mb-2',
     variant === 'system' && 'border border-input',
     className,
   );
@@ -44,14 +106,6 @@ export default function ChatMessage({
       textareaRef.current.style.overflowY =
         textareaRef.current.scrollHeight > 40 ? 'auto' : 'hidden';
     }
-  };
-
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
-    if (onContentChange) {
-      onContentChange(e.target.value);
-    }
-    adjustHeights();
   };
 
   const onMessageClick = () => {
@@ -71,7 +125,7 @@ export default function ChatMessage({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex h-10 w-full flex-row items-center justify-between bg-white px-3 py-2">
+      <div className="flex h-10 w-full flex-row items-center justify-between bg-white px-3 pt-2">
         <p className="text-sm font-medium text-zinc-700 md:text-base">
           {variant.toUpperCase()}
         </p>
@@ -94,39 +148,21 @@ export default function ChatMessage({
         </div>
       </div>
 
-      {variant === 'system' || isEditing ? (
-        <div
+      <div>
+        <EditorContent
+          ref={textareaRef}
+          editor={editor}
           className={cn(
-            variant !== 'system' &&
-              'rounded-md border border-input pt-2 ring-offset-background',
-            'px-3 pb-2',
+            'w-full resize-none px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-base',
+            (variant === 'user' || variant === 'assistant') &&
+              isEditing &&
+              'rounded-md border border-input ring-offset-background',
           )}
-        >
-          <textarea
-            id="message"
-            className={inputClassName}
-            ref={textareaRef}
-            value={message}
-            rows={variant === 'system' ? 1 : 2}
-            placeholder={
-              variant === 'system' ? 'Enter System Instructions' : ''
-            }
-            onChange={handleInput}
-            onBlur={onMessageBlur}
-            autoFocus={isEditing}
-            aria-multiline="true"
-          />
-        </div>
-      ) : (
-        <div className="flex flex-col px-3 pb-2">
-          <p
-            className="cursor-pointer sm:text-sm md:text-base"
-            onClick={onMessageClick}
-          >
-            {message}
-          </p>
-        </div>
-      )}
+          onBlur={onMessageBlur}
+          autoFocus={isEditing}
+          onClick={onMessageClick}
+        />
+      </div>
     </div>
   );
 }
