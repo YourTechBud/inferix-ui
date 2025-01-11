@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import { HydratedRouter } from 'react-router/dom';
 
 async function prepareApp() {
-  if (import.meta.env.DEV) {
+  if (import.meta.env.DEV && import.meta.env.MOCK_API === 'true') {
     const { worker } = await import('./lib/mocks/browser');
     return worker.start();
   }

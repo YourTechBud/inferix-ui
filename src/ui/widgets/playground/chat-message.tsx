@@ -9,12 +9,18 @@ interface ChatMessageProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string;
   variant: 'system' | 'user' | 'assistant';
   content?: string;
+  handleRegenerate: () => void;
+  setContent: (content: string) => void;
+  onDelete?: () => void;
 }
 
-export default function ChatMessage({
+export default function ChatMessageBox({
   className,
   variant = 'system',
   content = '',
+  handleRegenerate,
+  setContent,
+  onDelete,
 }: ChatMessageProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
@@ -26,27 +32,26 @@ export default function ChatMessage({
   );
 
   const divClassName = cn(
-    'flex flex-col relative min-h-[64px] rounded-md bg-white ring-offset-background focus-visible:outline-none mb-4',
+    'flex flex-col relative min-h-[64px] rounded-md ring-offset-background focus-visible:outline-none mb-4',
     variant === 'system' && 'border border-input',
     className,
   );
 
-  const [message, setMessage] = useState('');
 
   const adjustHeights = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
-      const newHeight = Math.min(textareaRef.current.scrollHeight, 64);
+      const newHeight = textareaRef.current.scrollHeight;
       textareaRef.current.style.height = `${newHeight}px`;
-      textareaRef.current.style.overflowY =
-        textareaRef.current.scrollHeight > 40 ? 'auto' : 'hidden';
     }
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
+    setContent(e.target.value);
     adjustHeights();
   };
+
+  adjustHeights();
 
   return (
     <div
@@ -55,22 +60,22 @@ export default function ChatMessage({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex h-10 w-full flex-row items-center justify-between bg-white px-3 py-2">
+      <div className="flex h-10 w-full flex-row items-center justify-between px-3 py-2">
         <p className="text-base font-medium text-zinc-700">
           {variant.toUpperCase()}
         </p>
         <div className="flex min-w-[60px] flex-row items-center justify-end gap-1">
-          {isHovered && variant === 'user' && (
-            <Button plain className="h-auto p-0" size="sm">
+          {isHovered && variant === 'assistant' && (
+            <Button plain className="h-auto p-0" size="sm" onClick={onDelete}>
               <BiTrash className="h-4 w-4 fill-zinc-500 hover:fill-zinc-700 md:h-5 md:w-5" />
             </Button>
           )}
-          {isHovered && variant === 'assistant' && (
+          {isHovered && variant === 'user' && (
             <>
-              <Button plain className="h-auto p-0" size="sm">
+              <Button plain className="h-auto p-0" size="sm" onClick={handleRegenerate}>
                 <BiRefresh className="h-4 w-4 fill-zinc-500 hover:fill-zinc-700 md:h-5 md:w-5" />
               </Button>
-              <Button plain className="h-auto p-0" size="sm">
+              <Button plain className="h-auto p-0" size="sm" onClick={onDelete}>
                 <BiTrash className="h-4 w-4 fill-zinc-500 hover:fill-zinc-700 md:h-5 md:w-5" />
               </Button>
             </>
@@ -78,26 +83,20 @@ export default function ChatMessage({
         </div>
       </div>
 
-      {variant === 'system' ? (
-        <div className="px-3 pb-2">
-          <textarea
-            id="message"
-            className={inputClassName}
-            ref={textareaRef}
-            value={message}
-            rows={1}
-            placeholder={
-              variant === 'system' ? 'Enter System Instructions' : ''
-            }
-            onChange={handleInput}
-            aria-multiline="true"
-          />
-        </div>
-      ) : (
-        <div className="flex flex-col px-3 pb-2">
-          <p className="text-base">{content}</p>
-        </div>
-      )}
+      <div className="px-3 pb-2">
+        <textarea
+          id="message"
+          className={inputClassName}
+          ref={textareaRef}
+          value={content}
+          rows={1}
+          placeholder={
+            variant === 'system' ? 'Enter System Instructions' : ''
+          }
+          onChange={handleInput}
+          aria-multiline="true"
+        />
+      </div>
     </div>
   );
 }
