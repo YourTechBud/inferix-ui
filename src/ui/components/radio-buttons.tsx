@@ -18,7 +18,7 @@ export default function RadioButtons({
   onChange,
 }: RadioButtonsProps) {
   return (
-    <TabGroup onChange={(index) => onChange?.(index === 0 ? option1 : option2)}>
+    <TabGroup onChange={index => onChange?.(index === 0 ? option1 : option2)}>
       <TabList>
         <Tab index={0} title={option1} />
         <Tab index={1} title={option2} />

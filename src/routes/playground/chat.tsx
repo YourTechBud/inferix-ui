@@ -73,7 +73,9 @@ export default function Component() {
   }
 
   // State for messages
-  const [messages, setMessages] = useState<ChatMessage[]>([DEFAULT_SYSTEM_MESSAGE]);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    DEFAULT_SYSTEM_MESSAGE,
+  ]);
   const [isStreaming, setIsStreaming] = useState(false);
 
   const [selectedModel, setSelectedModel] = useState<string>(

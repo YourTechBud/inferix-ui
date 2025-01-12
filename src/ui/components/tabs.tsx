@@ -20,7 +20,9 @@ export function TabGroup({ className, children, onChange }: TabGroupProps) {
   const [index, setIndex] = useState(0);
   return (
     <TabContext.Provider value={{ index, setIndex }}>
-      <_TabGroup className={className} onChange={onChange}>{children}</_TabGroup>
+      <_TabGroup className={className} onChange={onChange}>
+        {children}
+      </_TabGroup>
     </TabContext.Provider>
   );
 }

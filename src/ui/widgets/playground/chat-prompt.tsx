@@ -24,7 +24,9 @@ export default function ChatPrompt({
   isStreaming = false,
 }: ChatPromptProps) {
   const [message, setMessage] = useState('');
-  const [selectedRole, setSelectedRole] = useState<'user' | 'assistant'>('user');
+  const [selectedRole, setSelectedRole] = useState<'user' | 'assistant'>(
+    'user',
+  );
   const [isFocused, setIsFocused] = useState(false); //use to track if textarea is in focus
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
@@ -123,19 +125,31 @@ export default function ChatPrompt({
         <RadioButtons
           option1="User"
           option2="Assistant"
-          onChange={(selected: string) => setSelectedRole(selected === 'User' ? 'user' : 'assistant')}
+          onChange={(selected: string) =>
+            setSelectedRole(selected === 'User' ? 'user' : 'assistant')
+          }
         />
 
         <div className="flex flex-row gap-2">
-          <Button className="w-20" color="secondary" size="sm" onClick={handleAdd}>
+          <Button
+            className="w-20"
+            color="secondary"
+            size="sm"
+            onClick={handleAdd}
+          >
             Add
           </Button>
 
-          <Button className="w-20" size="sm" onClick={handleSend} disabled={isStreaming}>
+          <Button
+            className="w-20"
+            size="sm"
+            onClick={handleSend}
+            disabled={isStreaming}
+          >
             {isStreaming ? (
               <Spinner />
             ) : (
-              <div className="flex flex-row items-center text-center gap-2">
+              <div className="flex flex-row items-center gap-2 text-center">
                 Run <BiPlay className="h-4 w-4" />
               </div>
             )}
