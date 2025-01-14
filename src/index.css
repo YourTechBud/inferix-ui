@@ -81,11 +81,11 @@
 }
 
 .tiptap pre {
-  @apply bg-zinc-950/5 text-black rounded-lg p-4 my-6 font-mono;
+  @apply my-6 rounded-lg bg-zinc-950/5 p-4 font-mono text-black;
 }
 
 .tiptap pre code {
-  @apply bg-transparent text-inherit text-sm p-0;
+  @apply bg-transparent p-0 text-sm text-inherit;
 }
 
 .tiptap .hljs-comment,
