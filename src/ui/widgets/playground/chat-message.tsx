@@ -61,7 +61,8 @@ export default function ChatMessageBox({
         codeBlock: false,
         code: {
           HTMLAttributes: {
-            class: 'bg-zinc-950/5 text-primary p-2 rounded-lg font-mono text-sm',
+            class:
+              'bg-zinc-950/5 text-primary p-2 rounded-lg font-mono text-sm',
           },
         },
         bulletList: {
@@ -130,8 +131,6 @@ export default function ChatMessageBox({
   const onMessageBlur = () => {
     setIsEditing(false);
   };
-
-
 
   return (
     <div

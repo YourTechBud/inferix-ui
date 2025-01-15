@@ -74,7 +74,7 @@ export default function Component() {
 
   // State for messages
   const [messages, setMessages] = useState<ChatMessage[]>([
-    DEFAULT_SYSTEM_MESSAGE, 
+    DEFAULT_SYSTEM_MESSAGE,
   ]);
   const [isStreaming, setIsStreaming] = useState(false);
 
@@ -203,7 +203,10 @@ export default function Component() {
   return (
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
-      <div id="main-container" className="mb-4 mt-4 flex max-h-[70vh] flex-grow flex-row gap-4 sm:gap-6 lg:mb-0 lg:max-h-[75vh]">
+      <div
+        id="main-container"
+        className="mb-4 mt-4 flex max-h-[70vh] flex-grow flex-row gap-4 sm:gap-6 lg:mb-0 lg:max-h-[75vh]"
+      >
         <div className="flex w-[80vw] flex-grow flex-col justify-between md:w-[25vw] lg:w-[45vw]">
           <div className="flex h-full flex-grow flex-col gap-4">
             <div className="flex flex-row gap-4">
@@ -223,7 +226,7 @@ export default function Component() {
                 </div>
               </Button>
             </div>
-            
+
             <div className="flex h-full flex-col justify-between">
               <div id="chat-messages" className="flex-1 overflow-y-auto">
                 {messages.map((message, index) => (
@@ -241,7 +244,7 @@ export default function Component() {
                     }}
                     onDelete={() => {
                       setMessages(prevMessages => {
-                      // Don't allow deleting the system message
+                        // Don't allow deleting the system message
                         if (index === 0 && message.role === 'system')
                           return prevMessages;
 
@@ -253,10 +256,7 @@ export default function Component() {
                   />
                 ))}
               </div>
-              <div
-                id="chat-prompt-container"
-                className="mt-4"
-              >
+              <div id="chat-prompt-container" className="mt-4">
                 <ChatPrompt
                   handleSendPrompt={handleSendPrompt}
                   handleAddMessage={handleAddMessage}
