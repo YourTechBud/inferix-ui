@@ -105,7 +105,7 @@ export default function Component() {
   return (
     <PagePanel className="flex h-full flex-col">
       <Heading variant="page" text="Chat" />
-      <div className="mb-4 mt-4 flex max-h-[63vh] flex-grow flex-row gap-4 sm:gap-6 lg:mb-0 lg:max-h-[70vh]">
+      <div className="mb-4 mt-4 flex max-h-[65vh] md:max-h-[70vh] flex-grow flex-row gap-4 sm:gap-6 lg:mb-0 lg:max-h-[75vh]">
         <div className="flex w-[60vw] flex-grow flex-col justify-between md:w-[25vw] lg:w-[45vw]">
           <div className="flex h-full flex-grow flex-col gap-4">
             <div className="flex flex-row gap-4">
