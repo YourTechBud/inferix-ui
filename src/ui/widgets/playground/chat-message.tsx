@@ -8,7 +8,7 @@ import go from 'highlight.js/lib/languages/go';
 import js from 'highlight.js/lib/languages/javascript';
 import python from 'highlight.js/lib/languages/python';
 import ts from 'highlight.js/lib/languages/typescript';
-import {common,createLowlight} from 'lowlight';
+import { common, createLowlight } from 'lowlight';
 import * as React from 'react';
 import { useRef, useState } from 'react';
 import { BiRefresh, BiTrash } from 'react-icons/bi';
@@ -111,9 +111,6 @@ export default function ChatMessage({
       if (onContentChange) {
         onContentChange(editor.getHTML());
       }
-      if (variant === 'system') {
-        adjustHeights();
-      }
     },
   });
 
@@ -122,16 +119,6 @@ export default function ChatMessage({
     variant === 'system' && 'border border-input',
     className,
   );
-
-  const adjustHeights = () => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      const newHeight = Math.min(textareaRef.current.scrollHeight, 64);
-      textareaRef.current.style.height = `${newHeight}px`;
-      textareaRef.current.style.overflowY =
-        textareaRef.current.scrollHeight > 40 ? 'auto' : 'hidden';
-    }
-  };
 
   const onMessageClick = () => {
     if (variant !== 'system') {
