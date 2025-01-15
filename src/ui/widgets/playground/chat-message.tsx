@@ -1,6 +1,18 @@
+import CodeBlockLowLight from '@tiptap/extension-code-block-lowlight';
+import Link from '@tiptap/extension-link';
+import Placeholder from '@tiptap/extension-placeholder';
+import Underline from '@tiptap/extension-underline';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import go from 'highlight.js/lib/languages/go';
+import js from 'highlight.js/lib/languages/javascript';
+import python from 'highlight.js/lib/languages/python';
+import ts from 'highlight.js/lib/languages/typescript';
+import { common, createLowlight } from 'lowlight';
 import * as React from 'react';
 import { useRef, useState } from 'react';
 import { BiRefresh, BiTrash } from 'react-icons/bi';
+import { Markdown } from 'tiptap-markdown';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/button';
@@ -14,6 +26,13 @@ interface ChatMessageProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onDelete?: () => void;
 }
 
+const lowlight = createLowlight(common);
+//current coding languages supported by editor
+lowlight.register('python', python);
+lowlight.register('go', go);
+lowlight.register('js', js);
+lowlight.register('ts', ts);
+
 export default function ChatMessageBox({
   className,
   variant = 'system',
@@ -22,35 +41,97 @@ export default function ChatMessageBox({
   setContent,
   onDelete,
 }: ChatMessageProps) {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLDivElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  //const [message, setMessage] = useState(content);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const inputClassName = cn(
-    'w-full text-sm placeholder:text-muted-foreground border-none focus-visible:outline-none resize-none disabled:cursor-not-allowed disabled:opacity-50',
-    className,
-  );
+  const editor = useEditor({
+    content: content,
+    extensions: [
+      Underline,
+      Link.configure({
+        HTMLAttributes: {
+          class:
+            'transition-[color] text-primary hover:underline cursor-pointer',
+        },
+      }),
+      StarterKit.configure({
+        codeBlock: false,
+        code: {
+          HTMLAttributes: {
+            class: 'bg-zinc-950/5 text-primary p-2 rounded-lg font-mono text-sm',
+          },
+        },
+        bulletList: {
+          HTMLAttributes: {
+            class: 'pl-5 list-disc text-gray-800',
+          },
+        },
+        orderedList: {
+          HTMLAttributes: {
+            class: 'pl-5 list-decimal text-black dark:text-white',
+          },
+        },
+        heading: {
+          levels: [1, 2, 3],
+        },
+        bold: {
+          HTMLAttributes: {
+            class: 'font-semibold',
+          },
+        },
+        paragraph: {
+          HTMLAttributes: {
+            class: 'text-black dark:text-white',
+          },
+        },
+      }),
+      Markdown.configure({
+        transformPastedText: true,
+      }),
+      Placeholder.configure({
+        placeholder:
+          (variant === 'system' && 'Enter System Instructions') || '',
+        emptyEditorClass:
+          'is-editor-empty before:content-[attr(data-placeholder)] before:text-gray-500 before:float-left before:pointer-events-none',
+      }),
+      CodeBlockLowLight.configure({
+        lowlight,
+        HTMLAttributes: {
+          class: 'tiptap',
+        },
+      }),
+    ],
+    editorProps: {
+      attributes: {
+        class:
+          'transition w-full text-sm border-none focus:ring-0 outline-none max-w-none prose prose-sm sm:prose lg:prose-lg mx-auto',
+      },
+    },
+    onUpdate: ({ editor }) => {
+      setContent(editor.getHTML());
+    },
+  });
 
   const divClassName = cn(
-    'flex flex-col relative min-h-[64px] rounded-md ring-offset-background focus-visible:outline-none mb-4',
+    'flex flex-col relative rounded-md bg-white ring-offset-background focus-visible:outline-none mb-2',
     variant === 'system' && 'border border-input',
     className,
   );
 
-  const adjustHeights = () => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      const newHeight = textareaRef.current.scrollHeight;
-      textareaRef.current.style.height = `${newHeight}px`;
+  const onMessageClick = () => {
+    if (variant !== 'system') {
+      setIsEditing(true);
     }
   };
 
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-    adjustHeights();
+  const onMessageBlur = () => {
+    setIsEditing(false);
   };
 
-  adjustHeights();
+
 
   return (
     <div
@@ -59,8 +140,8 @@ export default function ChatMessageBox({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex h-10 w-full flex-row items-center justify-between px-3 py-2">
-        <p className="text-base font-medium text-zinc-700">
+      <div className="flex h-10 w-full flex-row items-center justify-between bg-white px-3 pt-2">
+        <p className="text-sm font-medium text-zinc-700 md:text-base">
           {variant.toUpperCase()}
         </p>
         <div className="flex min-w-[60px] flex-row items-center justify-end gap-1">
@@ -87,16 +168,19 @@ export default function ChatMessageBox({
         </div>
       </div>
 
-      <div className="px-3 pb-2">
-        <textarea
-          id="message"
-          className={inputClassName}
+      <div>
+        <EditorContent
           ref={textareaRef}
-          value={content}
-          rows={1}
-          placeholder={variant === 'system' ? 'Enter System Instructions' : ''}
-          onChange={handleInput}
-          aria-multiline="true"
+          editor={editor}
+          className={cn(
+            'w-full resize-none px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-base',
+            (variant === 'user' || variant === 'assistant') &&
+              isEditing &&
+              'rounded-md border border-input ring-offset-background',
+          )}
+          onBlur={onMessageBlur}
+          autoFocus={isEditing}
+          onClick={onMessageClick}
         />
       </div>
     </div>
