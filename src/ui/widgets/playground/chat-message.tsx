@@ -55,6 +55,11 @@ export default function ChatMessage({
       }),
       StarterKit.configure({
         codeBlock: false,
+        code: {
+          HTMLAttributes: {
+            class: 'bg-zinc-950/5 text-primary p-2 rounded-lg font-mono text-sm',
+          },
+        },
         bulletList: {
           HTMLAttributes: {
             class: 'pl-5 list-disc text-gray-800',
