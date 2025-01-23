@@ -178,8 +178,8 @@ export default function ChatMessageBox({
           className={cn(
             'w-full resize-none px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-base',
             (variant === 'user' || variant === 'assistant') &&
-            isEditing &&
-            'rounded-md border border-input ring-offset-background',
+              isEditing &&
+              'rounded-md border border-input ring-offset-background',
           )}
           onBlur={onMessageBlur}
           autoFocus={isEditing}
