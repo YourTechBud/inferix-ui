@@ -1,19 +1,17 @@
-import { http, HttpResponse } from 'msw';
-
 import { getApiUrl } from '../config';
 
 /*
  * Interfaces
  */
 
-interface Model {
+export interface Model {
   id: string;
   created: number;
   object: string;
   owned_by: string;
 }
 
-interface ModelsResponse {
+export interface ModelsResponse {
   data: Model[];
 }
 
@@ -48,23 +46,3 @@ export function getModelsQuery() {
     queryFn: fetchModels,
   };
 }
-
-/*
- * Mock server handlers
- */
-
-export const handlers = [
-  http.get(getApiUrl('/inferix/v1/llm/models'), () => {
-    const response: ModelsResponse = {
-      data: [
-        {
-          id: 'gpt-4o',
-          created: 1728518400,
-          object: 'model',
-          owned_by: 'openai',
-        },
-      ],
-    };
-    return HttpResponse.json(response);
-  }),
-];

@@ -85,7 +85,7 @@ export default function ChatMessageBox({
         },
         paragraph: {
           HTMLAttributes: {
-            class: 'text-black dark:text-white',
+            class: 'text-black mb-2 dark:text-white',
           },
         },
       }),
