@@ -1,6 +1,11 @@
 import CodeBlockLowLight from '@tiptap/extension-code-block-lowlight';
+import Gapcursor from '@tiptap/extension-gapcursor';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
 import Underline from '@tiptap/extension-underline';
 import { BubbleMenu, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -19,6 +24,7 @@ import {
   BiListOl,
   BiListUl,
   BiRefresh,
+  BiTable,
   BiTrash,
   BiUnderline,
 } from 'react-icons/bi';
@@ -55,7 +61,12 @@ export default function ChatMessageBox({
   const divRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [isEditable, _] = React.useState(true); //for bubble menu popup
+  //for bubble menu popup
+  const [isEditable] = React.useState(true);
+  // for table dropdown
+  const [isTableDropdownOpen, setIsTableDropdownOpen] = useState(false);
+  const [tableRows, setTableRows] = useState(3);
+  const [tableColumns, setTableColumns] = useState(3);
 
   useEffect(() => {
     if (variant === 'assistant' && textareaRef.current) {
@@ -136,6 +147,20 @@ export default function ChatMessageBox({
           class: 'tiptap',
         },
       }),
+      Table.configure({
+        resizable: true,
+        HTMLAttributes: {
+          class: 'w-full border border-gray-200 table-auto border-collapse',
+        },
+      }),
+      TableRow,
+      TableCell.configure({
+        HTMLAttributes: { class: 'border border-gray-300 p-2' },
+      }),
+      TableHeader.configure({
+        HTMLAttributes: { class: 'border border-gray-300 p-2 bg-gray-100' },
+      }),
+      Gapcursor,
     ],
     editorProps: {
       attributes: {
@@ -168,11 +193,14 @@ export default function ChatMessageBox({
 
   const onMessageBlur = () => {
     setIsEditing(false);
+    setIsTableDropdownOpen(false); // close dropdown on blur
   };
 
-  React.useEffect(() => {
-    editor?.commands.setContent(content);
-  }, [content]);
+  useEffect(() => {
+    if (editor && !editor.isFocused && editor.getHTML() !== content) {
+      editor.commands.setContent(content);
+    }
+  }, [content, editor]);
 
   return (
     <div
@@ -248,6 +276,108 @@ export default function ChatMessageBox({
               >
                 <BiListOl className="h-5 w-5" />
               </button>
+              <button
+                onClick={() => setIsTableDropdownOpen(!isTableDropdownOpen)}
+              >
+                <BiTable className="h-5 w-5" />
+              </button>
+              {/* Dropdown for selecting rows and columns */}
+              {isTableDropdownOpen && (
+                <div className="absolute left-0 top-10 z-10 mt-2 rounded-md border border-gray-300 bg-white p-2 shadow-lg">
+                  <div className="flex items-center space-x-2">
+                    <label className="flex items-center space-x-1 text-xs">
+                      <span>Rows:</span>
+                      <input
+                        type="number"
+                        value={tableRows}
+                        onChange={e =>
+                          setTableRows(Math.max(1, Number(e.target.value)))
+                        }
+                        className="w-12 rounded border px-1 py-0.5 text-xs"
+                        min={1}
+                      />
+                    </label>
+                    <label className="flex items-center space-x-1 text-xs">
+                      <span>Cols:</span>
+                      <input
+                        type="number"
+                        value={tableColumns}
+                        onChange={e =>
+                          setTableColumns(Math.max(1, Number(e.target.value)))
+                        }
+                        className="w-12 rounded border px-1 py-0.5 text-xs"
+                        min={1}
+                      />
+                    </label>
+                    <Button
+                      onClick={() => {
+                        if (editor) {
+                          editor
+                            .chain()
+                            .focus()
+                            .insertTable({
+                              rows: tableRows,
+                              cols: tableColumns,
+                              withHeaderRow: true,
+                            })
+                            .run();
+                        }
+                        setIsTableDropdownOpen(false);
+                      }}
+                      className="rounded px-2 py-1 text-xs text-white"
+                      color="secondary"
+                      size="sm"
+                    >
+                      Insert
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {/* Table modification buttons only when inside a table */}
+              {editor.isActive('tableCell') && (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <button
+                    onClick={() => editor.chain().focus().addRowBefore().run()}
+                    className="rounded border px-2 py-1 text-xs"
+                  >
+                    Add Row Before
+                  </button>
+                  <button
+                    onClick={() => editor.chain().focus().addRowAfter().run()}
+                    className="rounded border px-2 py-1 text-xs"
+                  >
+                    Add Row After
+                  </button>
+                  <button
+                    onClick={() => editor.chain().focus().deleteRow().run()}
+                    className="rounded border px-2 py-1 text-xs"
+                  >
+                    Delete Row
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().addColumnBefore().run()
+                    }
+                    className="rounded border px-2 py-1 text-xs"
+                  >
+                    Add Col Before
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().addColumnAfter().run()
+                    }
+                    className="rounded border px-2 py-1 text-xs"
+                  >
+                    Add Col After
+                  </button>
+                  <button
+                    onClick={() => editor.chain().focus().deleteColumn().run()}
+                    className="rounded border px-2 py-1 text-xs"
+                  >
+                    Delete Col
+                  </button>
+                </div>
+              )}
             </div>
           </BubbleMenu>
         )}

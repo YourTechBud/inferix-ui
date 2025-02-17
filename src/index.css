@@ -138,3 +138,16 @@
 .tiptap .hljs-strong {
   @apply font-bold;
 }
+
+.tiptap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tiptap th,
+.tiptap td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.tiptap th {
+  background-color: #f9f9f9;
+}
