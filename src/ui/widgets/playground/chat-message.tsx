@@ -2,7 +2,7 @@ import CodeBlockLowLight from '@tiptap/extension-code-block-lowlight';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import Underline from '@tiptap/extension-underline';
-import { EditorContent, useEditor } from '@tiptap/react';
+import { BubbleMenu, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import go from 'highlight.js/lib/languages/go';
 import js from 'highlight.js/lib/languages/javascript';
@@ -12,7 +12,16 @@ import { common, createLowlight } from 'lowlight';
 import * as React from 'react';
 import { useRef, useState } from 'react';
 import { useEffect } from 'react';
-import { BiRefresh, BiTrash } from 'react-icons/bi';
+import {
+  BiBold,
+  BiCode,
+  BiItalic,
+  BiListOl,
+  BiListUl,
+  BiRefresh,
+  BiTrash,
+  BiUnderline,
+} from 'react-icons/bi';
 import { Markdown } from 'tiptap-markdown';
 
 import { cn } from '@/lib/utils';
@@ -45,8 +54,8 @@ export default function ChatMessageBox({
   const textareaRef = useRef<HTMLDivElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  //const [message, setMessage] = useState(content);
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditable, _] = React.useState(true); //for bubble menu popup
 
   useEffect(() => {
     if (variant === 'assistant' && textareaRef.current) {
@@ -139,6 +148,12 @@ export default function ChatMessageBox({
     },
   });
 
+  useEffect(() => {
+    if (editor) {
+      editor.setEditable(isEditable);
+    }
+  }, [isEditable, editor]);
+
   const divClassName = cn(
     'flex flex-col relative rounded-md bg-white ring-offset-background focus-visible:outline-none mb-2',
     variant === 'system' && 'border border-input',
@@ -195,6 +210,47 @@ export default function ChatMessageBox({
       </div>
 
       <div>
+        {editor && (
+          <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
+            <div className="bubble-menu space-x-2 rounded-md border border-input bg-white p-2 shadow-md">
+              <button
+                onClick={() => editor.chain().focus().toggleBold().run()}
+                className={editor.isActive('bold') ? 'is-active' : ''}
+              >
+                <BiBold className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleItalic().run()}
+                className={editor.isActive('italic') ? 'is-active' : ''}
+              >
+                <BiItalic className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleUnderline().run()}
+              >
+                <BiUnderline className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+                className={editor.isActive('codeBlock') ? 'is-active' : ''}
+              >
+                <BiCode className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleBulletList().run()}
+                className={editor.isActive('bulletList') ? 'is-active' : ''}
+              >
+                <BiListUl className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                className={editor.isActive('orderedList') ? 'is-active' : ''}
+              >
+                <BiListOl className="h-5 w-5" />
+              </button>
+            </div>
+          </BubbleMenu>
+        )}
         <EditorContent
           ref={textareaRef}
           editor={editor}

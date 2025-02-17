@@ -23,6 +23,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.62.16
         version: 5.62.16(react@18.3.1)
+      '@tiptap/extension-bubble-menu':
+        specifier: ^2.11.5
+        version: 2.11.5(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3)
       '@tiptap/extension-code-block-lowlight':
         specifier: ^2.11.2
         version: 2.11.3(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/extension-code-block@2.11.3(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3)(highlight.js@11.11.1)(lowlight@3.3.0)
@@ -1070,8 +1073,8 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-bubble-menu@2.11.3':
-    resolution: {integrity: sha512-KOAy9zCzqssJO7cGIwZNgv2hFyxrZ2AHoWptICPA79nVZrHQQw2ZP1/FDTR8cDEZzLQMbpgGqQhUhjZcAs3/zQ==}
+  '@tiptap/extension-bubble-menu@2.11.5':
+    resolution: {integrity: sha512-rx+rMd7EEdht5EHLWldpkzJ56SWYA9799b33ustePqhXd6linnokJCzBqY13AfZ9+xp3RsR6C0ZHI9GGea0tIA==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
       '@tiptap/pm': ^2.7.0
@@ -3722,7 +3725,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.11.3(@tiptap/pm@2.11.3)
 
-  '@tiptap/extension-bubble-menu@2.11.3(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3)':
+  '@tiptap/extension-bubble-menu@2.11.5(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3)':
     dependencies:
       '@tiptap/core': 2.11.3(@tiptap/pm@2.11.3)
       '@tiptap/pm': 2.11.3
@@ -3854,7 +3857,7 @@ snapshots:
   '@tiptap/react@2.11.3(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tiptap/core': 2.11.3(@tiptap/pm@2.11.3)
-      '@tiptap/extension-bubble-menu': 2.11.3(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3)
+      '@tiptap/extension-bubble-menu': 2.11.5(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3)
       '@tiptap/extension-floating-menu': 2.11.3(@tiptap/core@2.11.3(@tiptap/pm@2.11.3))(@tiptap/pm@2.11.3)
       '@tiptap/pm': 2.11.3
       '@types/use-sync-external-store': 0.0.6
