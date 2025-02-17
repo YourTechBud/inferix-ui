@@ -11,6 +11,7 @@ import ts from 'highlight.js/lib/languages/typescript';
 import { common, createLowlight } from 'lowlight';
 import * as React from 'react';
 import { useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { BiRefresh, BiTrash } from 'react-icons/bi';
 import { Markdown } from 'tiptap-markdown';
 
@@ -46,6 +47,28 @@ export default function ChatMessageBox({
   const [isHovered, setIsHovered] = useState(false);
   //const [message, setMessage] = useState(content);
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if (variant === 'assistant' && textareaRef.current) {
+      const element = textareaRef.current; //our tip tap editor containing the content
+      const parent = element.closest('[data-chat-messages-container]'); //our chat message container i.e. the parent of the editor
+
+      if (parent) {
+        // Get current scroll position
+        const { scrollTop, scrollHeight, clientHeight } = parent;
+        const isScrolledNearBottom =
+          scrollHeight - scrollTop - clientHeight < 100;
+
+        // Only auto-scroll if near bottom or if this is a new message
+        if (isScrolledNearBottom) {
+          parent.scrollTo({
+            top: scrollHeight, // Scroll to the full height of the container
+            behavior: 'smooth', // Smooth animation instead of instant jump
+          });
+        }
+      }
+    }
+  }, [content, variant]);
 
   const editor = useEditor({
     content: content,
