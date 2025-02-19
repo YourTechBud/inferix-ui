@@ -228,7 +228,11 @@ export default function Component() {
             </div>
 
             <div className="flex h-full flex-col justify-between">
-              <div id="chat-messages" className="flex-1 overflow-y-auto">
+              <div
+                id="chat-messages"
+                className="flex-1 overflow-y-auto"
+                data-chat-messages-container // This is a custom attribute for being able to auto scroll through the chat editor
+              >
                 {messages.map((message, index) => (
                   <ChatMessageBox
                     key={index}
